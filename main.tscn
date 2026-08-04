@@ -1,0 +1,92 @@
+[gd_scene format=3 uid="uid://dg1qhcxn34tlb"]
+
+[ext_resource type="Script" uid="uid://3xb8p67005br" path="res://da.gd" id="1_7mycd"]
+[ext_resource type="PackedScene" uid="uid://bs72ogkvdd7d6" path="res://addons/proto_controller/proto_controller.tscn" id="1_ig7tw"]
+[ext_resource type="Script" uid="uid://bo3eohcq0n86v" path="res://label.gd" id="2_0xm2m"]
+[ext_resource type="FontFile" uid="uid://d1rk3vxurt3iq" path="res://VCR_OSD_MONO_1.001.ttf" id="2_h2yge"]
+[ext_resource type="PackedScene" uid="uid://cmp6mt3uytan7" path="res://enemy_1.tscn" id="5_lquwl"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_7dm0k"]
+sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+ground_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+
+[sub_resource type="Sky" id="Sky_ig7tw"]
+sky_material = SubResource("ProceduralSkyMaterial_7dm0k")
+
+[sub_resource type="Environment" id="Environment_0xm2m"]
+background_mode = 2
+sky = SubResource("Sky_ig7tw")
+glow_enabled = true
+
+[sub_resource type="LabelSettings" id="LabelSettings_0xm2m"]
+font = ExtResource("2_h2yge")
+font_size = 115
+font_color = Color(0.81960785, 0.18431373, 0, 1)
+outline_size = 1
+
+[sub_resource type="NavigationMesh" id="NavigationMesh_dwbtc"]
+vertices = PackedVector3Array(-49.172005, 0.35499954, -5.380001, -19.922005, 0.35499954, -5.380001, -19.922005, 0.35499954, -6.130001, -18.672005, 0.35499954, -6.630001, -18.672005, 0.35499954, -59.38, -49.172005, 0.35499954, -59.38, -17.672005, 0.35499954, -6.130001, 43.077995, 0.35499954, -5.380001, 43.077995, 0.35499954, -59.38, -17.672005, 0.35499954, -5.380001, -18.672005, 0.35499954, 9.369999, -18.672005, 0.35499954, -4.380001, -19.672005, 0.35499954, -4.380001, -19.922005, 0.35499954, 9.619999, -49.172005, 0.35499954, 10.869999, -19.922005, 0.35499954, 11.119999, -17.922005, 0.35499954, -4.380001, -17.672005, 0.35499954, 9.619999, 43.077995, 0.35499954, 10.869999, -17.672005, 0.35499954, 11.119999, -18.922005, 14.355, 19.119999, -18.922005, 14.355, 28.869999, -18.422005, 14.355, 18.869999, -27.422005, 14.355, 18.869999, -27.422005, 14.355, 9.369999, -8.672005, 14.355, 18.869999, -8.672005, 14.355, 9.369999, -18.672005, 0.35499954, 43.87, -18.672005, 0.35499954, 29.869999, -19.922005, 0.35499954, 29.619999, -49.172005, 0.35499954, 43.87, -17.672005, 0.35499954, 29.619999, 43.077995, 0.35499954, 43.87)
+polygons = [PackedInt32Array(2, 1, 0), PackedInt32Array(2, 0, 3), PackedInt32Array(3, 0, 4), PackedInt32Array(4, 0, 5), PackedInt32Array(3, 4, 6), PackedInt32Array(6, 4, 8), PackedInt32Array(6, 8, 7), PackedInt32Array(7, 9, 6), PackedInt32Array(12, 11, 10), PackedInt32Array(10, 13, 12), PackedInt32Array(12, 13, 1), PackedInt32Array(1, 13, 0), PackedInt32Array(0, 13, 14), PackedInt32Array(13, 15, 14), PackedInt32Array(10, 11, 16), PackedInt32Array(10, 16, 17), PackedInt32Array(17, 16, 9), PackedInt32Array(17, 9, 7), PackedInt32Array(17, 7, 18), PackedInt32Array(18, 19, 17), PackedInt32Array(22, 21, 20), PackedInt32Array(20, 23, 22), PackedInt32Array(22, 23, 24), PackedInt32Array(25, 22, 26), PackedInt32Array(26, 22, 24), PackedInt32Array(28, 27, 29), PackedInt32Array(29, 27, 30), PackedInt32Array(15, 29, 14), PackedInt32Array(14, 29, 30), PackedInt32Array(28, 31, 27), PackedInt32Array(27, 31, 32), PackedInt32Array(19, 18, 31), PackedInt32Array(31, 18, 32)]
+
+[node name="Main" type="Node3D" unique_id=741617033]
+script = ExtResource("1_7mycd")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1645865734]
+environment = SubResource("Environment_0xm2m")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1878363992]
+transform = Transform3D(-0.9851093, 0.14353457, -0.09464362, 0, 0.5504808, 0.83484787, 0.17192902, 0.8224164, -0.5422838, 0, 0, 0)
+shadow_enabled = true
+
+[node name="Player" parent="." unique_id=1335445467 instance=ExtResource("1_ig7tw")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 6.8, 0.20000005, -0.8)
+ground_friction = 98.0
+slide_boost = 60.0
+slide_duration = 1.0
+slide_jump_boost = 100.005
+slide_drag = 100.0
+wall_jump_push = 5.0
+wall_jump_up = 15.0
+
+[node name="Label" type="Label" parent="." unique_id=1460505340]
+custom_minimum_size = Vector2(10, 10)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -99.0
+offset_top = -101.0
+offset_right = 101.0
+offset_bottom = 99.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_behavior_recursive = 1
+text = "WRITERS"
+label_settings = SubResource("LabelSettings_0xm2m")
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("2_0xm2m")
+
+[node name="DirectionalLight3D2" type="DirectionalLight3D" parent="." unique_id=1632552537]
+transform = Transform3D(-0.17365, 0, 0.98480743, 0, 1, 0, -0.98480743, 0, -0.17365, 5.8, 4.5, 2.0000002)
+
+[node name="NavigationRegion3D" type="NavigationRegion3D" parent="." unique_id=1735533491]
+navigation_mesh = SubResource("NavigationMesh_dwbtc")
+
+[node name="Enemy_1" parent="NavigationRegion3D" unique_id=614772914 instance=ExtResource("5_lquwl")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18.8, 1, -5.3999996)
+player_path = NodePath("../../Player")
+
+[node name="CSGBox3D" type="CSGBox3D" parent="NavigationRegion3D" unique_id=779509024]
+transform = Transform3D(5.8300004, 0, 0, 0, 5.8300004, 0, 0, 0, 5.8300004, -3.0319996, -2.0649998, -7.701499)
+use_collision = true
+size = Vector3(16, 0.7, 17.9)
+
+[node name="CSGBox3D6" type="CSGBox3D" parent="NavigationRegion3D" unique_id=414182607]
+transform = Transform3D(19.36, 0, 0, 0, -4.4716757e-07, -1, 0, 10.2300005, -4.371139e-08, -18, 13.500001, 14.099999)
+use_collision = true
+
+[node name="CSGBox3D4" type="CSGBox3D" parent="NavigationRegion3D" unique_id=1999089570]
+transform = Transform3D(-8.462525e-07, 0, -1, 0, 30.690002, 0, 19.36, 0, -4.371139e-08, -18.900002, -1.3000001, 19.6)
+use_collision = true
