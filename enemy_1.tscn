@@ -15,7 +15,7 @@ albedo_color = Color(1, 0, 0, 1)
 [sub_resource type="BoxShape3D" id="BoxShape3D_pjquw"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_3xd07"]
-size = Vector3(1.2, 1, 1.2)
+size = Vector3(1.8000001, 1, 1.6)
 
 [node name="Enemy_1" type="CharacterBody3D" unique_id=614772914]
 script = ExtResource("1_mbxyh")
@@ -47,4 +47,5 @@ transform = Transform3D(1.05, 0, 0, 0, 1.05, 0, 0, 0, 1.05, 0, 0, 0)
 script = ExtResource("3_663o1")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D2" unique_id=1590968664]
+transform = Transform3D(0.99999964, 0, 0, 0, 0.99999964, 0, 0, 0, 0.99999964, 7.09579e-08, 0, -2.1287374e-08)
 shape = SubResource("BoxShape3D_3xd07")
