@@ -22,10 +22,9 @@ func take_damage(amount: int) -> void:
 	health_changed.emit(current_health, max_health)
 	if current_health == 0:
 		died.emit()
-		
-func die():
-	if current_health == 0:
 		get_tree().reload_current_scene()
+		
+
 
 func heal(amount: int) -> void:
 	if amount <= 0 or current_health <= 0:

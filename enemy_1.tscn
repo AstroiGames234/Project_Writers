@@ -34,13 +34,16 @@ shape = SubResource("CapsuleShape3D_3xd07")
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="." unique_id=919167680]
 
 [node name="Area3D" type="Area3D" parent="." unique_id=611986402]
+transform = Transform3D(1.15, 0, 0, 0, 1.15, 0, 0, 0, 1.15, 0, 0, 0)
 script = ExtResource("2_pjquw")
+damage = 30
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D" unique_id=1631146888]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.1, 0, 0)
 shape = SubResource("BoxShape3D_pjquw")
 
 [node name="Area3D2" type="Area3D" parent="." unique_id=1212574368]
+transform = Transform3D(1.05, 0, 0, 0, 1.05, 0, 0, 0, 1.05, 0, 0, 0)
 script = ExtResource("3_663o1")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D2" unique_id=1590968664]

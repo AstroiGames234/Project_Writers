@@ -6,24 +6,13 @@
 [ext_resource type="Script" uid="uid://b2g7vq0hio4mb" path="res://addons/proto_controller/area_3d.gd" id="4_6dqce"]
 [ext_resource type="Script" uid="uid://bhayawwfy8wgb" path="res://addons/proto_controller/d.gd" id="4_h60nn"]
 [ext_resource type="ArrayMesh" uid="uid://cg3wx816ct34w" path="res://Combat/Sword/temp_sword.obj" id="5_0rk7u"]
+[ext_resource type="Script" uid="uid://dp7ookjf1ixmn" path="res://addons/proto_controller/player.gd" id="7_ujot4"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_jq8tk"]
-size = Vector3(2, 1, 1.3000001)
+size = Vector3(2, 1, 1.9434571)
 
 [sub_resource type="Animation" id="Animation_h60nn"]
 length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("MeshInstance3D:mesh")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [ExtResource("5_0rk7u")]
-}
 
 [sub_resource type="Animation" id="Animation_ujot4"]
 resource_name = "swing"
@@ -75,6 +64,9 @@ bg_color = Color(1, 0, 0, 1)
 
 [node name="ProtoController" type="CharacterBody3D" unique_id=1267460402]
 script = ExtResource("1_ucva2")
+jump_velocity = 12.0
+slide_boost = 100.0
+slide_drag = 100.0
 
 [node name="Health" type="Node" parent="." unique_id=1587656117]
 script = ExtResource("4_h60nn")
@@ -82,7 +74,7 @@ script = ExtResource("4_h60nn")
 [node name="Sword" type="Node3D" parent="." unique_id=1614381822]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.17541063, 0)
 script = ExtResource("2_h60nn")
-damage = 5
+hit_start_time = 0.0
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Sword" unique_id=270269640]
 transform = Transform3D(0.16618624, -0.10207737, -0.47629714, 0.12911338, 0.5602052, -0.06552812, 0.63819736, -0.08675394, 0.13728449, 0.40982842, 0.9567151, -0.5772548)
@@ -91,7 +83,7 @@ mesh = ExtResource("5_0rk7u")
 [node name="Hitbox" type="Area3D" parent="Sword" unique_id=364997522]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Sword/Hitbox" unique_id=1643631751]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.90000004, -0.75000006)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, -1.0717286)
 shape = SubResource("BoxShape3D_jq8tk")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Sword" unique_id=470571135]
@@ -117,7 +109,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0011110306, 0.0040819645, 
 script = ExtResource("4_6dqce")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Hurtbox" unique_id=744638450]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.90000004, 0)
+transform = Transform3D(1.1, 0, 0, 0, 2, 0, 0, 0, 1.1, 0, 0.90000004, 0)
 shape = SubResource("BoxShape3D_3xd07")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1631531519]
@@ -140,3 +132,6 @@ theme_override_styles/fill = SubResource("StyleBoxFlat_jq8tk")
 value = 100.0
 show_percentage = false
 metadata/_edit_use_anchors_ = true
+
+[node name="player" type="Node" parent="." unique_id=2104148188]
+script = ExtResource("7_ujot4")

@@ -230,7 +230,7 @@ func _do_wall_jump() -> void:
 	is_slamming = false
 	dash_timer = 0.0
 	
-@onready var weapon = $Sword
+@onready var weapon: Node3D = $Sword
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("attack"):
