@@ -32,7 +32,6 @@ surface_material_override/0 = SubResource("StandardMaterial3D_jq8tk")
 shape = SubResource("CapsuleShape3D_3xd07")
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="." unique_id=919167680]
-debug_enabled = true
 debug_use_custom = true
 debug_path_custom_color = Color(1, 0, 1, 1)
 

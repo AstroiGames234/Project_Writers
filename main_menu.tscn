@@ -1,6 +1,5 @@
 [gd_scene format=3 uid="uid://t6uccx2y2s7u"]
 
-[ext_resource type="ArrayMesh" uid="uid://cg3wx816ct34w" path="res://Combat/Sword/temp_sword.obj" id="1_06t4h"]
 [ext_resource type="Script" uid="uid://dhf25fkfn8k33" path="res://main_menu_fix.gd" id="1_fu7sn"]
 [ext_resource type="Script" uid="uid://bvaoievg82jcy" path="res://main_menu.gd" id="2_7vrkn"]
 
@@ -16,6 +15,13 @@ background_mode = 2
 sky = SubResource("Sky_fu7sn")
 glow_enabled = true
 
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_ujot4"]
+
+[sub_resource type="Skin" id="Skin_1tksx"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ths8c"]
+albedo_color = Color(0, 1, 0, 1)
+
 [node name="menu" type="Node3D" unique_id=364623609]
 script = ExtResource("1_fu7sn")
 
@@ -27,8 +33,10 @@ transform = Transform3D(-0.9961947, -0.062905475, 0.060324177, 0, 0.69214314, 0.
 shadow_enabled = true
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1914803519]
-transform = Transform3D(24.128, 0, 0, 0, 24.024002, 0, 0, 0, 15.823082, 0, 13.7, 0)
-mesh = ExtResource("1_06t4h")
+transform = Transform3D(24.128, 0, 0, 0, 24.024002, 0, 0, 0, 22.152315, 0, 13.7, 0)
+mesh = SubResource("CapsuleMesh_ujot4")
+skin = SubResource("Skin_1tksx")
+surface_material_override/0 = SubResource("StandardMaterial3D_ths8c")
 
 [node name="Camera3D" type="Camera3D" parent="." unique_id=1085009086]
 transform = Transform3D(1, 0, 0, 0, 0.8660254, 0.5, 0, -0.5, 0.8660254, -2.6000001, 66.100006, 77.7)

@@ -22,7 +22,7 @@ func take_damage(amount: int) -> void:
 	health_changed.emit(current_health, max_health)
 	if current_health == 0:
 		died.emit()
-		get_tree().reload_current_scene()
+		get_tree().change_scene_to_file("res://main_menu.tscn")
 		
 
 
