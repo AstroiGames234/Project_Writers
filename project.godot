@@ -11,13 +11,13 @@ config_version=5
 [application]
 
 config/name="trying to create something"
-run/main_scene="uid://dg1qhcxn34tlb"
+run/main_scene="uid://t6uccx2y2s7u"
 config/features=PackedStringArray("4.7", "Forward Plus")
 config/icon="res://icon.svg"
 
 [display]
 
-window/size/mode=3
+window/size/mode=4
 window/stretch/mode="canvas_items"
 window/stretch/aspect="expand"
 window/vsync/vsync_mode=0

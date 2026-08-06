@@ -2,7 +2,7 @@ extends Area3D
 
 # Preload the enemy scene into memory
 @export var enemy_scene: PackedScene = preload("res://enemy_1.tscn")
-@onready var spawn_points_parent: Node3D = $"../hallway 1 markers"
+@onready var spawn_points_parent: Node3D = $"../hallway 2 markers"
 
 
 
