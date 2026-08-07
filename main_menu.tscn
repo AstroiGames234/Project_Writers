@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://dhf25fkfn8k33" path="res://main_menu_fix.gd" id="1_fu7sn"]
 [ext_resource type="Script" uid="uid://bvaoievg82jcy" path="res://main_menu.gd" id="2_7vrkn"]
+[ext_resource type="FontFile" uid="uid://d1rk3vxurt3iq" path="res://VCR_OSD_MONO_1.001.ttf" id="3_fu7sn"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_7vrkn"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -21,6 +22,11 @@ glow_enabled = true
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ths8c"]
 albedo_color = Color(0, 1, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_1c2u7"]
+font = ExtResource("3_fu7sn")
+font_size = 33
+font_color = Color(1, 0.34509805, 0, 1)
 
 [node name="menu" type="Node3D" unique_id=364623609]
 script = ExtResource("1_fu7sn")
@@ -58,14 +64,15 @@ layout_mode = 2
 text = "please dont quit"
 
 [node name="Label" type="Label" parent="." unique_id=592265734]
-offset_left = 509.0
-offset_top = 146.0
-offset_right = 577.0
-offset_bottom = 169.0
+offset_left = 424.0
+offset_top = 96.99998
+offset_right = 559.0
+offset_bottom = 125.99998
 scale = Vector2(2.4553022, 2.273807)
-theme_override_colors/font_color = Color(1, 0.38039216, 0, 1)
+theme_override_colors/font_color = Color(1, 0.40784314, 0, 1)
 theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
 text = "WRITERS"
+label_settings = SubResource("LabelSettings_1c2u7")
 horizontal_alignment = 1
 
 [node name="Label2" type="Label" parent="." unique_id=1878126742]

@@ -1,6 +1,6 @@
 extends CharacterBody3D
 
-const SPEED: float = 5.0
+const SPEED: float = 8.0
 
 @export var player_path: NodePath
 

@@ -1,0 +1,39 @@
+[gd_scene format=3 uid="uid://8vk44v6k3plc"]
+
+[ext_resource type="Script" uid="uid://b7c4swrl7vgj8" path="res://force.gd" id="1_8rnkt"]
+[ext_resource type="Script" uid="uid://bde20pw80gts0" path="res://level end.gd" id="1_t1v37"]
+[ext_resource type="FontFile" uid="uid://d1rk3vxurt3iq" path="res://VCR_OSD_MONO_1.001.ttf" id="2_8rnkt"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_3xd07"]
+font = ExtResource("2_8rnkt")
+font_size = 75
+
+[node name="end screen" type="Node3D" unique_id=1826501863]
+script = ExtResource("1_8rnkt")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=584918214]
+offset_left = 398.0
+offset_top = 304.0
+offset_right = 746.0
+offset_bottom = 468.0
+script = ExtResource("1_t1v37")
+
+[node name="restart" type="Button" parent="VBoxContainer" unique_id=738132620]
+layout_mode = 2
+text = "Restart Level"
+
+[node name="to menu" type="Button" parent="VBoxContainer" unique_id=711074499]
+layout_mode = 2
+text = "Back to Main Menu"
+
+[node name="Label" type="Label" parent="." unique_id=2038510771]
+offset_left = 295.0
+offset_top = 70.99999
+offset_right = 955.0
+offset_bottom = 137.0
+scale = Vector2(0.8256647, 2.2252522)
+text = "LEVEL COMPLETE!"
+label_settings = SubResource("LabelSettings_3xd07")
+
+[connection signal="pressed" from="VBoxContainer/restart" to="VBoxContainer" method="_on_restart_pressed"]
+[connection signal="pressed" from="VBoxContainer/to menu" to="VBoxContainer" method="_on_to_menu_pressed"]

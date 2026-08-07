@@ -1,0 +1,33 @@
+[gd_scene format=3 uid="uid://ctgml86vnc0aa"]
+
+[node name="kuti fazs" type="Node3D" unique_id=1597408494]
+
+[node name="CSGCylinder3D" type="CSGCylinder3D" parent="." unique_id=219469689]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.5500001, 0)
+smoothing_angle = 180.0
+use_collision = true
+radius = 0.90000004
+height = 1.9000001
+
+[node name="CSGCylinder3D2" type="CSGCylinder3D" parent="CSGCylinder3D" unique_id=1852450968]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.049999952, 0)
+smoothing_angle = 180.0
+operation = 2
+radius = 0.7
+height = 1.9000001
+
+[node name="CSGBox3D" type="CSGBox3D" parent="." unique_id=332349935]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.75, -2.9802322e-08, 0)
+size = Vector3(0.1, 1.4, 0.2)
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="." unique_id=852152802]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.75, -2.9802322e-08, 0)
+size = Vector3(0.1, 1.4, 0.2)
+
+[node name="CSGBox3D3" type="CSGBox3D" parent="." unique_id=173999328]
+transform = Transform3D(0.64278764, -0.76604444, 0, 0.76604444, 0.64278764, 0, 0, 0, 1, 0.43509337, 0.94641817, 0)
+size = Vector3(0.1, 1.2, 1)
+
+[node name="CSGBox3D4" type="CSGBox3D" parent="." unique_id=1374834812]
+transform = Transform3D(-0.64278764, 0.76604444, 8.742278e-08, 0.76604444, 0.64278764, 0, -5.619428e-08, 6.696973e-08, -1, -0.42660445, 0.9499999, -3.3484875e-09)
+size = Vector3(0.1, 1.2, 1)
