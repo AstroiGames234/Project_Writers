@@ -231,7 +231,10 @@ func _do_wall_jump() -> void:
 	dash_timer = 0.0
 	
 @onready var weapon: Node3D = $Sword
+@onready var anim_player: AnimationPlayer = $Sword/AttackAnimation
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("attack"):
 		weapon.attack()
+		anim_player.play("sword_attack")
+		

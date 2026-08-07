@@ -3,44 +3,73 @@
 [ext_resource type="Script" uid="uid://but0bobnc0uhf" path="res://addons/proto_controller/proto_controller.gd" id="1_ucva2"]
 [ext_resource type="Script" uid="uid://dy2l1y1ngjx7k" path="res://addons/proto_controller/progress_bar.gd" id="2_5hfox"]
 [ext_resource type="Script" uid="uid://bd5utvt5jhs7c" path="res://addons/proto_controller/sword.gd" id="2_h60nn"]
+[ext_resource type="ArrayMesh" uid="uid://cds8sjp0veun" path="res://Combat/Sword/Sword.obj" id="4_1tksx"]
 [ext_resource type="Script" uid="uid://b2g7vq0hio4mb" path="res://addons/proto_controller/area_3d.gd" id="4_6dqce"]
 [ext_resource type="Script" uid="uid://bhayawwfy8wgb" path="res://addons/proto_controller/d.gd" id="4_h60nn"]
-[ext_resource type="ArrayMesh" uid="uid://cg3wx816ct34w" path="res://Combat/Sword/temp_sword.obj" id="5_0rk7u"]
 [ext_resource type="Script" uid="uid://dp7ookjf1ixmn" path="res://addons/proto_controller/player.gd" id="7_ujot4"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_jq8tk"]
-size = Vector3(4.0146484, 1, 4.623114)
-
-[sub_resource type="Animation" id="Animation_h60nn"]
-length = 0.001
+size = Vector3(4.0146484, 2.4663086, 3.7383149)
 
 [sub_resource type="Animation" id="Animation_ujot4"]
-resource_name = "swing"
-length = 0.5
-tracks/0/type = "position_3d"
+length = 0.001
+tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("MeshInstance3D")
+tracks/0/path = NodePath("MeshInstance3D:rotation")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
-tracks/0/keys = PackedFloat32Array()
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(-1.1614702, -0.24915972, -2.2658978)]
+}
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("MeshInstance3D:mesh")
+tracks/1/path = NodePath("MeshInstance3D:position")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.09, 0.5),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 1,
-"values": [ExtResource("5_0rk7u"), ExtResource("5_0rk7u"), ExtResource("5_0rk7u")]
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(1.1259553, 1.7429656, -1.4443028)]
 }
 
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_1tksx"]
+[sub_resource type="Animation" id="Animation_1tksx"]
+resource_name = "sword_attack"
+length = 0.39999999999999997
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MeshInstance3D:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(-1.1614702, -0.24915968, -2.2658978), Vector3(-0.7658611, -1.2096648, -1.3793873), Vector3(-0.76586115, -2.9100904, -1.3793871), Vector3(-0.14401972, -2.3379729, -2.8032813)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("MeshInstance3D:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(1.1259553, 1.7429656, -1.4443028), Vector3(-0.9534662, 1.7429656, -1.9199497), Vector3(1.7900838, 1.7429656, -0.8729646), Vector3(-0.19145715, 1.9210182, 0.059639454)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ths8c"]
 _data = {
-&"RESET": SubResource("Animation_h60nn"),
-&"swing": SubResource("Animation_ujot4")
+&"RESET": SubResource("Animation_ujot4"),
+&"sword_attack": SubResource("Animation_1tksx")
 }
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_iof21"]
@@ -74,22 +103,22 @@ script = ExtResource("4_h60nn")
 [node name="Sword" type="Node3D" parent="." unique_id=1614381822]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.17541063, 0)
 script = ExtResource("2_h60nn")
-attack_cooldown = 0.07
+attack_cooldown = 0.15
 hit_start_time = 0.0
 hit_duration = 0.4
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Sword" unique_id=270269640]
-transform = Transform3D(0.16618624, -0.10207737, -0.47629714, 0.12911338, 0.5602052, -0.06552812, 0.63819736, -0.08675394, 0.13728449, 0.3144427, 0.9567151, -0.67322135)
-mesh = ExtResource("5_0rk7u")
+transform = Transform3D(-0.53384966, 0.34524778, -0.049070228, -0.20539863, -0.14682174, 0.4586942, 0.35270354, 0.43706232, 0.19285046, 1.1259553, 1.7429656, -1.4443028)
+mesh = ExtResource("4_1tksx")
 
 [node name="Hitbox" type="Area3D" parent="Sword" unique_id=364997522]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Sword/Hitbox" unique_id=1643631751]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.007944465, 0.9050816, -2.162316)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.007944465, 0.6812047, -1.7199165)
 shape = SubResource("BoxShape3D_jq8tk")
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="Sword" unique_id=470571135]
-libraries/ = SubResource("AnimationLibrary_1tksx")
+[node name="AttackAnimation" type="AnimationPlayer" parent="Sword" unique_id=1571664844]
+libraries/ = SubResource("AnimationLibrary_ths8c")
 
 [node name="Mesh" type="MeshInstance3D" parent="." unique_id=1493799394]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)
@@ -106,6 +135,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7, 0)
 
 [node name="Camera3D" type="Camera3D" parent="Head" unique_id=1858925732]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0011110306, 0.0040819645, -0.001427412)
+fov = 90.0
 
 [node name="Hurtbox" type="Area3D" parent="." unique_id=925672254]
 script = ExtResource("4_6dqce")
