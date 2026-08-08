@@ -9,6 +9,7 @@
 [ext_resource type="FontFile" uid="uid://d1rk3vxurt3iq" path="res://VCR_OSD_MONO_1.001.ttf" id="4_s3sxq"]
 [ext_resource type="Script" uid="uid://bo3eohcq0n86v" path="res://label.gd" id="5_5py54"]
 [ext_resource type="Texture2D" uid="uid://ci2w2rtgvrhow" path="res://Textures/wdcorl0.jpg" id="5_fjxbk"]
+[ext_resource type="Texture2D" uid="uid://cyv77di568pco" path="res://Textures/dlv_stonebrk4e.bmp" id="6_3jhf0"]
 [ext_resource type="Script" uid="uid://dlkbnk1vleln0" path="res://trigger.gd" id="6_lmyl5"]
 [ext_resource type="Script" uid="uid://b4b5xqnx58uye" path="res://room_1.gd" id="7_mlbie"]
 [ext_resource type="Script" uid="uid://be4oofq826nxu" path="res://room_2.gd" id="8_s3sxq"]
@@ -37,7 +38,13 @@ uv2_world_triplanar = true
 albedo_texture = ExtResource("5_fjxbk")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2g1yb"]
+albedo_texture = ExtResource("6_3jhf0")
+uv1_scale = Vector3(2, 0.4, 0.4)
+uv1_triplanar = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_yvkom"]
 albedo_texture = ExtResource("5_fjxbk")
+uv1_triplanar = true
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jl3d8"]
 albedo_texture = ExtResource("5_fjxbk")
@@ -86,19 +93,40 @@ shadow_enabled = true
 navigation_mesh = SubResource("NavigationMesh_dwbtc")
 
 [node name="floor" type="CSGBox3D" parent="NavigationRegion3D" unique_id=789467995]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 72.8, 0, -182.3)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 72.8, 0, -171.25)
 use_collision = true
-size = Vector3(321.2, 1, 437)
+size = Vector3(321.2, 1, 459.1)
 material = SubResource("StandardMaterial3D_jq8tk")
 
 [node name="kuti fazs" parent="NavigationRegion3D" unique_id=1597408494 instance=ExtResource("2_wapi5")]
 transform = Transform3D(1.9000001, 0, 0, 0, 2.2, 0, 0, 0, 1.8, -12.5, 3.1, -189.70001)
+
+[node name="kuti fazs2" parent="NavigationRegion3D" unique_id=411149363 instance=ExtResource("2_wapi5")]
+transform = Transform3D(1.9000001, 0, 0, 0, 2.2, 0, 0, 0, 1.8, 31.5, 3.1, -257)
 
 [node name="smol house" parent="NavigationRegion3D" unique_id=1885592550 instance=ExtResource("2_aiv1b")]
 transform = Transform3D(2.9, 0, 0, 0, 3.4500003, 0, 0, 0, 3.06, -10.2, 0, 16.2)
 
 [node name="smol house32" parent="NavigationRegion3D" unique_id=596247801 instance=ExtResource("2_aiv1b")]
 transform = Transform3D(2.9, 0, 0, 0, 3.4500003, 0, 0, 0, 3.06, 14.000001, 0, 31.5)
+
+[node name="smol house39" parent="NavigationRegion3D" unique_id=463211173 instance=ExtResource("2_aiv1b")]
+transform = Transform3D(-2.8999999, 0, -2.6751366e-07, 0, 3.45, 0, 2.5352605e-07, 0, -3.0599997, -5.4999986, 0, 22.4)
+
+[node name="smol house65" parent="NavigationRegion3D" unique_id=310470642 instance=ExtResource("2_aiv1b")]
+transform = Transform3D(3.8028907e-07, 0, -3.0599997, 0, 3.45, 0, 2.9, 0, 4.012705e-07, -29.900002, 0, 14.7)
+
+[node name="smol house66" parent="NavigationRegion3D" unique_id=466483814 instance=ExtResource("2_aiv1b")]
+transform = Transform3D(2.8999999, 0, 5.350273e-07, 0, 3.45, 0, -5.0705205e-07, 0, 3.0599997, -45.4, 0, -4.3)
+
+[node name="smol house67" parent="NavigationRegion3D" unique_id=1995000426 instance=ExtResource("2_aiv1b")]
+transform = Transform3D(3.80289e-07, 0, -3.0599997, 0, 3.45, 0, 2.9, 0, 4.0127054e-07, -66.00001, 0, -25.300001)
+
+[node name="smol house36" parent="NavigationRegion3D" unique_id=1940558879 instance=ExtResource("2_aiv1b")]
+transform = Transform3D(-2.61, 0, 2.6751366e-07, 0, 3.45, 0, -2.2817345e-07, 0, -3.0599997, 35.1, 0, 21.8)
+
+[node name="smol house38" parent="NavigationRegion3D" unique_id=1028160841 instance=ExtResource("2_aiv1b")]
+transform = Transform3D(-2.61, 0, 2.6751366e-07, 0, 3.45, 0, -2.2817345e-07, 0, -3.0599997, 35.1, 0, 37.1)
 
 [node name="smol house2" parent="NavigationRegion3D" unique_id=444888702 instance=ExtResource("2_aiv1b")]
 transform = Transform3D(-3.865258e-07, 0, -3.0599995, 0, 3.45, 0, 8.842679, 0, -1.3375681e-07, -32.6, 0, -27.400002)
@@ -116,16 +144,37 @@ transform = Transform3D(-2.8929134e-07, 0, -4.773599, 0, 3.45, 0, 6.6182146, 0, 
 transform = Transform3D(-2.8929134e-07, 0, -4.773599, 0, 3.45, 0, 6.6182146, 0, -2.0866062e-07, 2.2999992, 0, -272.69998)
 
 [node name="smol house13" parent="NavigationRegion3D" unique_id=1384622122 instance=ExtResource("2_aiv1b")]
-transform = Transform3D(-4.1744786e-07, 0, -3.0599995, 0, 3.45, 0, 9.550094, 0, -1.3375681e-07, 39, 0, -198.9)
+transform = Transform3D(-4.1744786e-07, 0, 3.0599995, 0, 3.4500005, 0, -9.550094, 0, -1.3375684e-07, 49.5, 0, -193.5)
 
 [node name="smol house7" parent="NavigationRegion3D" unique_id=1051410498 instance=ExtResource("2_aiv1b")]
-transform = Transform3D(-3.865258e-07, 0, -3.0599995, 0, 3.45, 0, 8.842679, 0, -1.3375681e-07, 33.700005, 0, -93.4)
+transform = Transform3D(1.1595773e-06, 0, 3.0599995, 0, 3.4500005, 0, -8.84268, 0, 4.0127048e-07, 42.600002, 0, -87.3)
 
 [node name="smol house3" parent="NavigationRegion3D" unique_id=1302718116 instance=ExtResource("2_aiv1b")]
 transform = Transform3D(-2.319155e-07, 0, -3.0599995, 0, 3.45, 0, 5.305608, 0, -1.3375681e-07, 2.8000007, 0, -41.9)
 
 [node name="smol house5" parent="NavigationRegion3D" unique_id=1904926420 instance=ExtResource("2_aiv1b")]
 transform = Transform3D(-2.319155e-07, 0, -3.6719995, 0, 3.45, 0, 5.305608, 0, -1.6050818e-07, -52.5, 0, -37.800003)
+
+[node name="smol house42" parent="NavigationRegion3D" unique_id=1876138598 instance=ExtResource("2_aiv1b")]
+transform = Transform3D(-2.319155e-07, 0, -3.6719995, 0, 3.45, 0, 5.305608, 0, -1.6050818e-07, -82.5, 0, -101.600006)
+
+[node name="smol house43" parent="NavigationRegion3D" unique_id=1591742700 instance=ExtResource("2_aiv1b")]
+transform = Transform3D(-2.319155e-07, 0, -3.6719995, 0, 3.45, 0, 5.305608, 0, -1.6050818e-07, -82.5, 0, -157.70001)
+
+[node name="smol house44" parent="NavigationRegion3D" unique_id=1532306808 instance=ExtResource("2_aiv1b")]
+transform = Transform3D(-2.319155e-07, 0, -3.6719995, 0, 3.45, 0, 5.305608, 0, -1.6050818e-07, -96.5, 0, -228.00002)
+
+[node name="smol house45" parent="NavigationRegion3D" unique_id=1828952431 instance=ExtResource("2_aiv1b")]
+transform = Transform3D(-2.319155e-07, 0, -3.6719995, 0, 3.45, 0, 5.305608, 0, -1.6050818e-07, -59.7, 0, -272.3)
+
+[node name="smol house46" parent="NavigationRegion3D" unique_id=27540289 instance=ExtResource("2_aiv1b")]
+transform = Transform3D(5.305608, 0, 1.4210855e-14, 0, 3.45, 0, 1.4210855e-14, 0, 3.6719992, -87.9, 0, -250.9)
+
+[node name="smol house40" parent="NavigationRegion3D" unique_id=589394830 instance=ExtResource("2_aiv1b")]
+transform = Transform3D(-5.305608, 0, 3.210164e-07, 0, 3.45, 0, -4.6383093e-07, 0, -3.6719992, -73.9, 0, -50.9)
+
+[node name="smol house41" parent="NavigationRegion3D" unique_id=90081918 instance=ExtResource("2_aiv1b")]
+transform = Transform3D(-5.305608, 0, 3.210164e-07, 0, 3.45, 0, -4.6383093e-07, 0, -3.6719992, -79.5, 0, -133.70001)
 
 [node name="smol house8" parent="NavigationRegion3D" unique_id=1572525466 instance=ExtResource("2_aiv1b")]
 transform = Transform3D(-5.305608, 0, 3.210164e-07, 0, 3.45, 0, -4.6383093e-07, 0, -3.6719992, -41.1, 0, -140.1)
@@ -139,11 +188,53 @@ transform = Transform3D(-2.5510704e-07, 0, -4.443119, 0, 3.4499996, 0, 5.836169,
 [node name="smol house19" parent="NavigationRegion3D" unique_id=1873215932 instance=ExtResource("2_aiv1b")]
 transform = Transform3D(-2.5510704e-07, 0, -4.443119, 0, 3.4499996, 0, 5.836169, 0, -1.9421493e-07, 54, 0, -339.6)
 
+[node name="smol house64" parent="NavigationRegion3D" unique_id=1101913183 instance=ExtResource("2_aiv1b")]
+transform = Transform3D(-2.5510704e-07, 0, -4.443119, 0, 3.4499996, 0, 5.836169, 0, -1.9421493e-07, 36, 0, -347)
+
+[node name="smol house57" parent="NavigationRegion3D" unique_id=1856270715 instance=ExtResource("2_aiv1b")]
+transform = Transform3D(-2.5510704e-07, 0, -4.443119, 0, 3.4499996, 0, 5.836169, 0, -1.9421493e-07, 54, 0, -379.9)
+
+[node name="smol house58" parent="NavigationRegion3D" unique_id=1044099583 instance=ExtResource("2_aiv1b")]
+transform = Transform3D(-5.836169, 0, 3.8842984e-07, 0, 3.4499996, 0, -5.10214e-07, 0, -4.443119, 74.8, 0, -419.49997)
+
+[node name="smol house59" parent="NavigationRegion3D" unique_id=1368956716 instance=ExtResource("2_aiv1b")]
+transform = Transform3D(-5.836169, 0, 3.8842984e-07, 0, 3.4499996, 0, -5.10214e-07, 0, -4.443119, 168.6, 0, -419.49997)
+
+[node name="smol house60" parent="NavigationRegion3D" unique_id=2057406926 instance=ExtResource("2_aiv1b")]
+transform = Transform3D(-2.5510695e-07, 0, -4.4431186, 0, 3.4499993, 0, 5.8361683, 0, -1.9421486e-07, 107.4, 0, -419.49997)
+
+[node name="smol house61" parent="NavigationRegion3D" unique_id=1084009810 instance=ExtResource("2_aiv1b")]
+transform = Transform3D(-2.5510695e-07, 0, -4.4431186, 0, 3.4499993, 0, 5.8361683, 0, -1.9421486e-07, 123.700005, 0, -403.19998)
+
 [node name="smol house20" parent="NavigationRegion3D" unique_id=1098013312 instance=ExtResource("2_aiv1b")]
 transform = Transform3D(-2.5510704e-07, 0, -4.443119, 0, 3.4499996, 0, 5.836169, 0, -1.9421493e-07, 72.9, 0, -378.5)
 
 [node name="smol house25" parent="NavigationRegion3D" unique_id=1516385038 instance=ExtResource("2_aiv1b")]
 transform = Transform3D(-2.5510704e-07, 0, -4.443119, 0, 3.4499996, 0, 5.836169, 0, -1.9421493e-07, 72.9, 0, -241.59999)
+
+[node name="smol house50" parent="NavigationRegion3D" unique_id=550978570 instance=ExtResource("2_aiv1b")]
+transform = Transform3D(5.836169, 0, -4.2632564e-14, 0, 3.4499996, 0, -2.842171e-14, 0, 4.443119, 94.100006, 0, -220.59999)
+
+[node name="smol house51" parent="NavigationRegion3D" unique_id=10576122 instance=ExtResource("2_aiv1b")]
+transform = Transform3D(5.836169, 0, -4.2632564e-14, 0, 3.4499996, 0, -2.842171e-14, 0, 4.443119, 174.09999, 0, -220.59999)
+
+[node name="smol house53" parent="NavigationRegion3D" unique_id=325483591 instance=ExtResource("2_aiv1b")]
+transform = Transform3D(5.836169, 0, -4.2632564e-14, 0, 3.4499996, 0, -2.842171e-14, 0, 4.443119, 153.99998, 0, -202.2)
+
+[node name="smol house54" parent="NavigationRegion3D" unique_id=610903464 instance=ExtResource("2_aiv1b")]
+transform = Transform3D(5.836169, 0, -4.2632564e-14, 0, 3.4499996, 0, -2.842171e-14, 0, 4.443119, 136.50002, 0, -179.2)
+
+[node name="smol house55" parent="NavigationRegion3D" unique_id=2097545541 instance=ExtResource("2_aiv1b")]
+transform = Transform3D(-2.5510704e-07, 0, 4.4431186, 0, 3.4499993, 0, -5.8361683, 0, -1.9421485e-07, 244.8, 0, -305)
+
+[node name="smol house52" parent="NavigationRegion3D" unique_id=884781151 instance=ExtResource("2_aiv1b")]
+transform = Transform3D(-2.5510698e-07, 0, -4.4431186, 0, 3.4499993, 0, 5.8361683, 0, -1.9421493e-07, 116.09999, 0, -220.59999)
+
+[node name="smol house47" parent="NavigationRegion3D" unique_id=1433567378 instance=ExtResource("2_aiv1b")]
+transform = Transform3D(-5.8361683, 0, 3.884298e-07, 0, 3.4499993, 0, -5.102139e-07, 0, -4.4431186, 58.800003, 0, -134.99998)
+
+[node name="smol house48" parent="NavigationRegion3D" unique_id=2062359611 instance=ExtResource("2_aiv1b")]
+transform = Transform3D(-1.5306411e-07, 0, -4.443118, 0, 3.4499993, 0, 3.501701, 0, -1.9421496e-07, 42.800003, 0, -153.39998)
 
 [node name="smol house28" parent="NavigationRegion3D" unique_id=739490698 instance=ExtResource("2_aiv1b")]
 transform = Transform3D(-2.5510704e-07, 0, -4.443119, 0, 3.4499996, 0, 5.836169, 0, -1.9421493e-07, 136.5, 0, -241.59999)
@@ -166,6 +257,12 @@ transform = Transform3D(5.836169, 0, -4.2632564e-14, 0, 3.4499996, 0, -2.842171e
 [node name="smol house24" parent="NavigationRegion3D" unique_id=197088990 instance=ExtResource("2_aiv1b")]
 transform = Transform3D(5.836169, 0, -4.2632564e-14, 0, 3.4499996, 0, -2.842171e-14, 0, 4.443119, 196.9, 0, -360.3)
 
+[node name="smol house62" parent="NavigationRegion3D" unique_id=1758716536 instance=ExtResource("2_aiv1b")]
+transform = Transform3D(-2.5510698e-07, 0, -4.4431186, 0, 3.4499993, 0, 5.8361683, 0, -1.9421493e-07, 228.29999, 0, -362.09998)
+
+[node name="smol house63" parent="NavigationRegion3D" unique_id=1956540614 instance=ExtResource("2_aiv1b")]
+transform = Transform3D(-2.5510698e-07, 0, -4.4431186, 0, 3.4499993, 0, 5.8361683, 0, -1.9421493e-07, 211.99998, 0, -379.19998)
+
 [node name="smol house30" parent="NavigationRegion3D" unique_id=706909217 instance=ExtResource("2_aiv1b")]
 transform = Transform3D(5.836169, 0, -4.2632564e-14, 0, 3.4499996, 0, -2.842171e-14, 0, 4.443119, 208.09999, 0, -275.59998)
 
@@ -175,8 +272,14 @@ transform = Transform3D(5.836169, 0, -4.2632564e-14, 0, 3.4499996, 0, -2.842171e
 [node name="smol house29" parent="NavigationRegion3D" unique_id=856624630 instance=ExtResource("2_aiv1b")]
 transform = Transform3D(-2.5510698e-07, 0, -4.4431186, 0, 3.4499993, 0, 5.8361683, 0, -1.9421493e-07, 190.7, 0, -339.59998)
 
+[node name="smol house56" parent="NavigationRegion3D" unique_id=1662221449 instance=ExtResource("2_aiv1b")]
+transform = Transform3D(-2.5510698e-07, 0, -4.4431186, 0, 3.4499993, 0, 5.8361683, 0, -1.9421493e-07, 207.2, 0, -339.59998)
+
 [node name="smol house16" parent="NavigationRegion3D" unique_id=1773666024 instance=ExtResource("2_aiv1b")]
 transform = Transform3D(-5.305608, 0, 3.210164e-07, 0, 3.45, 0, -4.6383093e-07, 0, -3.6719992, 40.4, 0, -245.8)
+
+[node name="smol house49" parent="NavigationRegion3D" unique_id=1309873653 instance=ExtResource("2_aiv1b")]
+transform = Transform3D(-3.7139254, 0, 3.210164e-07, 0, 3.45, 0, -3.2468165e-07, 0, -3.6719992, 63.700005, 0, -228.5)
 
 [node name="smol house10" parent="NavigationRegion3D" unique_id=718619931 instance=ExtResource("2_aiv1b")]
 transform = Transform3D(-1.1595774e-07, 0, -3.671999, 0, 3.4499996, 0, 2.652804, 0, -1.6050821e-07, -59.6, 0, -151.10002)
@@ -189,6 +292,18 @@ transform = Transform3D(-5.305608, 0, 3.210164e-07, 0, 3.45, 0, -4.6383093e-07, 
 
 [node name="smol house4" parent="NavigationRegion3D" unique_id=138026088 instance=ExtResource("2_aiv1b")]
 transform = Transform3D(-2.319155e-07, 0, -3.0599995, 0, 3.45, 0, 5.305608, 0, -1.3375681e-07, 19.400002, 0, -41.9)
+
+[node name="smol house33" parent="NavigationRegion3D" unique_id=804811982 instance=ExtResource("2_aiv1b")]
+transform = Transform3D(-2.319155e-07, 0, -3.0599995, 0, 3.45, 0, 5.305608, 0, -1.3375681e-07, 32.100002, 0, -41.9)
+
+[node name="smol house34" parent="NavigationRegion3D" unique_id=195166288 instance=ExtResource("2_aiv1b")]
+transform = Transform3D(-2.319155e-07, 0, -3.0599995, 0, 3.45, 0, 5.305608, 0, -1.3375681e-07, 52.700005, 0, -31.800001)
+
+[node name="smol house35" parent="NavigationRegion3D" unique_id=846192532 instance=ExtResource("2_aiv1b")]
+transform = Transform3D(8.3489573e-07, 0, 3.0599992, 0, 3.4499996, 0, -6.3667293, 0, 4.0127046e-07, 61.900005, 0, 13.000002)
+
+[node name="smol house37" parent="NavigationRegion3D" unique_id=1238935052 instance=ExtResource("2_aiv1b")]
+transform = Transform3D(8.3489573e-07, 0, 3.0599992, 0, 3.4499996, 0, -6.3667293, 0, 4.0127046e-07, 61.900005, 0, 57.9)
 
 [node name="CSGBox3D2" type="CSGBox3D" parent="NavigationRegion3D" unique_id=1391423557]
 transform = Transform3D(10.1088, 0, 0, 0, 1.6, 0, 0, 0, 1, 22.731358, 7.3599997, -20.8)
@@ -298,7 +413,7 @@ material = SubResource("StandardMaterial3D_2g1yb")
 transform = Transform3D(-10.1088, 0, 8.742276e-08, -8.837392e-07, -6.9938224e-08, -1, 3.8629466e-14, -1.6, 4.371139e-08, 8.4422455, 12.319998, -308.48526)
 use_collision = true
 size = Vector3(8.1, 17.9, 1)
-material = SubResource("StandardMaterial3D_2g1yb")
+material = SubResource("StandardMaterial3D_yvkom")
 
 [node name="CSGBox3D54" type="CSGBox3D" parent="NavigationRegion3D" unique_id=54722831]
 transform = Transform3D(-10.1088, 0, 8.742276e-08, 0, 1.6, 0, -8.837392e-07, 0, -1, -17.625116, 4.2399993, -293.96527)
@@ -547,7 +662,7 @@ size = Vector3(0.2, 8.400001, 1)
 material = SubResource("StandardMaterial3D_k33gd")
 
 [node name="CSGBox3D7" type="CSGBox3D" parent="NavigationRegion3D" unique_id=602662408]
-transform = Transform3D(-4.4186967e-07, -6.993822e-08, 1, -10.1088, 3.057097e-15, -4.371139e-08, 0, -1.6, -4.3711385e-08, 42.55312, 6.2420797, 0.48000127)
+transform = Transform3D(-4.4186967e-07, -6.993822e-08, 1, -10.1088, 3.057097e-15, -4.371139e-08, 0, -1.6, -4.3711385e-08, 40.85312, 6.2420797, 0.48000127)
 visible = false
 use_collision = true
 size = Vector3(1.9, 26.2, 1)
@@ -825,6 +940,18 @@ material = SubResource("StandardMaterial3D_58k54")
 [node name="train" parent="NavigationRegion3D" unique_id=1192383543 instance=ExtResource("4_3gjqj")]
 transform = Transform3D(3.2912677e-08, 0, -2.31, 0, 2.0900004, 0, 2.76, 0, 2.754647e-08, 26.500002, 1.5, -2.6000001)
 
+[node name="CSGBox3D" type="CSGBox3D" parent="NavigationRegion3D" unique_id=1036644016]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 37.35, 7, 17.300001)
+visible = false
+use_collision = true
+size = Vector3(10.7, 0.4, 6.4)
+
+[node name="CSGBox3D114" type="CSGBox3D" parent="NavigationRegion3D" unique_id=1220077469]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 37.549995, 7, -18.65)
+visible = false
+use_collision = true
+size = Vector3(10.7, 0.4, 7.9)
+
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1645865734]
 environment = SubResource("Environment_0xm2m")
 
@@ -841,7 +968,7 @@ use_collision = true
 size = Vector3(136.7, 1, 273)
 
 [node name="Player" parent="." unique_id=1335445467 instance=ExtResource("3_mlbie")]
-transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 27.7, 0.20000005, -1.0999999)
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 27.7, 0.40000004, -1.0999999)
 ground_friction = 98.0
 slide_boost = 60.0
 slide_duration = 1.0
@@ -987,7 +1114,7 @@ transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -33.
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 8.600023, 1.7, -238.70003)
 
 [node name="hallway 2 markers" type="Node3D" parent="." unique_id=955838443]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 17.8, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 13.599998, 0)
 
 [node name="Marker3D" type="Marker3D" parent="hallway 2 markers" unique_id=1467895509]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9, 1.6, -307.6)

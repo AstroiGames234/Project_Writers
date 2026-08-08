@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://dhf25fkfn8k33" path="res://main_menu_fix.gd" id="1_fu7sn"]
 [ext_resource type="Script" uid="uid://bvaoievg82jcy" path="res://main_menu.gd" id="2_7vrkn"]
 [ext_resource type="FontFile" uid="uid://d1rk3vxurt3iq" path="res://VCR_OSD_MONO_1.001.ttf" id="3_fu7sn"]
+[ext_resource type="Script" uid="uid://6k8j1s2u1uoa" path="res://v_box_container_2.gd" id="4_jix8l"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_7vrkn"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -27,6 +28,10 @@ albedo_color = Color(0, 1, 0, 1)
 font = ExtResource("3_fu7sn")
 font_size = 33
 font_color = Color(1, 0.34509805, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_4uy8c"]
+font = ExtResource("3_fu7sn")
+font_size = 75
 
 [node name="menu" type="Node3D" unique_id=364623609]
 script = ExtResource("1_fu7sn")
@@ -83,11 +88,30 @@ offset_bottom = 255.0
 text = "this is ass"
 
 [node name="Label3" type="Label" parent="." unique_id=1948867813]
-offset_left = 405.0
-offset_top = 275.0
-offset_right = 798.0
-offset_bottom = 298.0
-text = "game is in pre_alpha so no textures or sexy models"
+offset_left = 317.0
+offset_top = 284.0
+offset_right = 2957.0
+offset_bottom = 350.0
+scale = Vector2(0.19999997, 0.27999997)
+text = "game is in pre_alpha 5 so expect shitty textures and models"
+label_settings = SubResource("LabelSettings_4uy8c")
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="." unique_id=162681036]
+offset_left = 1051.0
+offset_top = 573.0
+offset_right = 1144.0
+offset_bottom = 639.0
+script = ExtResource("4_jix8l")
+
+[node name="discord" type="Button" parent="VBoxContainer2" unique_id=1941702935]
+layout_mode = 2
+text = "Discord"
+
+[node name="yt" type="Button" parent="VBoxContainer2" unique_id=1721380272]
+layout_mode = 2
+text = "SUBSCIRBE"
 
 [connection signal="pressed" from="VBoxContainer/play" to="VBoxContainer" method="_on_play_pressed"]
 [connection signal="pressed" from="VBoxContainer/quit" to="VBoxContainer" method="_on_quit_pressed"]
+[connection signal="pressed" from="VBoxContainer2/discord" to="VBoxContainer2" method="_on_discord_pressed"]
+[connection signal="pressed" from="VBoxContainer2/yt" to="VBoxContainer2" method="_on_yt_pressed"]

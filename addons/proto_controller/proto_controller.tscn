@@ -8,6 +8,30 @@
 [ext_resource type="Script" uid="uid://bhayawwfy8wgb" path="res://addons/proto_controller/d.gd" id="4_h60nn"]
 [ext_resource type="Script" uid="uid://dp7ookjf1ixmn" path="res://addons/proto_controller/player.gd" id="7_ujot4"]
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_fjxbk"]
+albedo_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3jhf0"]
+albedo_color = Color(1, 0.654902, 0, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jl3d8"]
+albedo_color = Color(1, 0.654902, 0, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_58k54"]
+albedo_color = Color(1, 0.654902, 0, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_e0n1a"]
+albedo_color = Color(1, 0.654902, 0, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2g1yb"]
+albedo_color = Color(1, 0.654902, 0, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0lcl8"]
+albedo_color = Color(1, 0.654902, 0, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_p1166"]
+albedo_color = Color(0.8980392, 1, 1, 1)
+
 [sub_resource type="BoxShape3D" id="BoxShape3D_jq8tk"]
 size = Vector3(4.0146484, 2.4663086, 3.7383149)
 
@@ -40,7 +64,7 @@ tracks/1/keys = {
 
 [sub_resource type="Animation" id="Animation_1tksx"]
 resource_name = "sword_attack"
-length = 0.39999999999999997
+length = 0.4
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -93,8 +117,8 @@ bg_color = Color(1, 0, 0, 1)
 
 [node name="ProtoController" type="CharacterBody3D" unique_id=1267460402]
 script = ExtResource("1_ucva2")
+crouch_speed = 10.0
 jump_velocity = 12.0
-slide_boost = 100.0
 slide_drag = 100.0
 
 [node name="Health" type="Node" parent="." unique_id=1587656117]
@@ -110,6 +134,14 @@ hit_duration = 0.4
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Sword" unique_id=270269640]
 transform = Transform3D(-0.53384966, 0.34524778, -0.049070228, -0.20539863, -0.14682174, 0.4586942, 0.35270354, 0.43706232, 0.19285046, 1.1259553, 1.7429656, -1.4443028)
 mesh = ExtResource("4_1tksx")
+surface_material_override/0 = SubResource("StandardMaterial3D_fjxbk")
+surface_material_override/1 = SubResource("StandardMaterial3D_3jhf0")
+surface_material_override/2 = SubResource("StandardMaterial3D_jl3d8")
+surface_material_override/3 = SubResource("StandardMaterial3D_58k54")
+surface_material_override/4 = SubResource("StandardMaterial3D_e0n1a")
+surface_material_override/5 = SubResource("StandardMaterial3D_2g1yb")
+surface_material_override/6 = SubResource("StandardMaterial3D_0lcl8")
+surface_material_override/7 = SubResource("StandardMaterial3D_p1166")
 
 [node name="Hitbox" type="Area3D" parent="Sword" unique_id=364997522]
 

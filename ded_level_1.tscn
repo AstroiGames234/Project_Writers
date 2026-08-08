@@ -1,0 +1,32 @@
+[gd_scene format=3 uid="uid://cnng774ita4pi"]
+
+[ext_resource type="Script" uid="uid://n3528lb21x70" path="res://v_box_container1.gd" id="1_4uy8c"]
+[ext_resource type="FontFile" uid="uid://d1rk3vxurt3iq" path="res://VCR_OSD_MONO_1.001.ttf" id="2_e4gr7"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_3xd07"]
+font = ExtResource("2_e4gr7")
+font_size = 75
+
+[node name="DED level 1" type="Node3D" unique_id=1129452029]
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=1340400451]
+offset_left = 447.0
+offset_top = 312.0
+offset_right = 728.0
+offset_bottom = 478.0
+script = ExtResource("1_4uy8c")
+
+[node name="menu" type="Button" parent="VBoxContainer" unique_id=1159641677]
+layout_mode = 2
+text = "Back to main menu"
+
+[node name="Label" type="Label" parent="." unique_id=539191439]
+offset_left = 375.0
+offset_top = 57.000004
+offset_right = 771.0
+offset_bottom = 123.0
+scale = Vector2(1.1472523, 2.6799994)
+text = "You DIED!"
+label_settings = SubResource("LabelSettings_3xd07")
+
+[connection signal="pressed" from="VBoxContainer/menu" to="VBoxContainer" method="_on_menu_pressed"]

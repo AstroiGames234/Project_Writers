@@ -3,7 +3,7 @@ extends CharacterBody3D
 @export var mouse_sensitivity := 0.12
 
 @export var sprint_speed := 15.0
-@export var crouch_speed := 6.0
+@export var crouch_speed := 25.0
 @export var air_speed := 7.0
 
 @export var ground_friction := 22.0
@@ -31,6 +31,10 @@ extends CharacterBody3D
 
 @export var coyote_time := 0.12
 @export var jump_buffer_time := 0.12
+
+@export var slide_speed := 24.0          
+@export var slide_max_speed := 28.0    
+@export var slide_sideways_boost := 5.0 
 
 @onready var head: Node3D = $Head
 @onready var camera: Camera3D = $Head/Camera3D
@@ -88,8 +92,15 @@ func _physics_process(delta: float) -> void:
 	if Input.is_action_just_pressed("dash") and dash_cooldown_timer <= 0.0 and dash_timer <= 0.0:
 		_start_dash()
 
+	# ULTRAKILL-like: press crouch to start/refresh slide, hold to maintain
 	if Input.is_action_just_pressed("crouch") and on_floor:
 		_start_slide()
+
+	# End slide if you let go of crouch or leave the ground
+	if not Input.is_action_pressed("crouch") or not on_floor:
+		if is_sliding:
+			is_sliding = false
+			slide_timer = 0.0
 
 	if Input.is_action_just_pressed("crouch") and not on_floor and not is_slamming:
 		_start_slam()
@@ -124,40 +135,67 @@ func _physics_process(delta: float) -> void:
 				horizontal_velocity = horizontal_velocity.move_toward(wish_dir * target_speed, air_acceleration * delta)
 
 		if is_sliding and on_floor:
-			slide_timer -= delta
-			var slide_dir := -transform.basis.z
-			slide_dir.y = 0.0
-			slide_dir = slide_dir.normalized()
+			# ULTRAKILL-like slide behavior:
+			# 1. Determine slide direction from input (or facing if no input)
+			var slide_dir := wish_dir
+			if slide_dir == Vector3.ZERO:
+				slide_dir = -transform.basis.z
+				slide_dir.y = 0.0
+				slide_dir = slide_dir.normalized()
+			else:
+				slide_dir = slide_dir.normalized()
 
-			horizontal_velocity = horizontal_velocity.move_toward(slide_dir * sprint_speed * 1.15, slide_drag * delta)
-			if slide_timer <= 0.0:
-				is_sliding = false
+			# 2. Apply "slideways": slight sideways influence while sliding
+			var sideways := Vector3.ZERO
+			if input_dir != Vector2.ZERO:
+				# Left/right relative to view direction
+				var right := transform.basis.x
+				right.y = 0.0
+				right = right.normalized()
+				sideways = right * input_dir.x * slide_sideways_boost
+
+			# 3. If current speed > slide_speed, preserve momentum but bleed toward slide_speed via friction
+			var current_speed := horizontal_velocity.length()
+			var target_slide_velocity := slide_dir * slide_speed + sideways
+
+			if current_speed > slide_speed:
+				# Bleed excess speed toward slide_speed using ground_friction
+				horizontal_velocity = horizontal_velocity.move_toward(
+					horizontal_velocity.normalized() * slide_speed + sideways,
+					ground_friction * delta
+				)
+				# Clamp to max slide speed
+				if horizontal_velocity.length() > slide_max_speed:
+					horizontal_velocity = horizontal_velocity.normalized() * slide_max_speed
+			else:
+				# Instant snap to slide speed + sideways (like ULTRAKILL's zero acceleration time)
+				horizontal_velocity = target_slide_velocity
 
 		velocity.x = horizontal_velocity.x
 		velocity.z = horizontal_velocity.z
 
-		if jump_buffer_timer > 0.0:
-			if coyote_timer > 0.0:
-				velocity.y = jump_velocity
-				jump_buffer_timer = 0.0
-				coyote_timer = 0.0
-				is_sliding = false
-				is_slamming = false
-			elif on_wall and wall_jump_uses_left > 0 and wall_jump_lockout <= 0.0:
-				_do_wall_jump()
-				jump_buffer_timer = 0.0
-
-		if jump_buffer_timer > 0.0 and was_on_floor and is_sliding:
-			velocity.y = jump_velocity + slide_jump_boost
-			velocity += -transform.basis.z * slide_boost * 0.5
+	if jump_buffer_timer > 0.0:
+		if coyote_timer > 0.0:
+			velocity.y = jump_velocity
 			jump_buffer_timer = 0.0
+			coyote_timer = 0.0
 			is_sliding = false
+			is_slamming = false
+		elif on_wall and wall_jump_uses_left > 0 and wall_jump_lockout <= 0.0:
+			_do_wall_jump()
+			jump_buffer_timer = 0.0
 
-		if not on_floor and not is_slamming:
-			velocity.y -= gravity * delta
-			velocity.y = maxf(velocity.y, -max_fall_speed)
-		elif velocity.y < 0.0 and not is_slamming:
-			velocity.y = 0.0
+	if jump_buffer_timer > 0.0 and was_on_floor and is_sliding:
+		velocity.y = jump_velocity + slide_jump_boost
+		velocity += -transform.basis.z * slide_boost * 0.5
+		jump_buffer_timer = 0.0
+		is_sliding = false
+
+	if not on_floor and not is_slamming:
+		velocity.y -= gravity * delta
+		velocity.y = maxf(velocity.y, -max_fall_speed)
+	elif velocity.y < 0.0 and not is_slamming:
+		velocity.y = 0.0
 
 	move_and_slide()
 
@@ -170,7 +208,7 @@ func _physics_process(delta: float) -> void:
 		is_slamming = false
 		velocity.y = 0.0
 
-	was_on_floor = is_on_floor()
+	was_on_floor = on_floor
 
 func _get_move_direction(input_dir: Vector2) -> Vector3:
 	if input_dir == Vector2.ZERO:
@@ -203,7 +241,7 @@ func _start_dash() -> void:
 
 func _start_slide() -> void:
 	is_sliding = true
-	slide_timer = slide_duration
+	# slide_timer not used for infinite slide, but kept if you want to add time-limited features later
 	dash_cooldown_timer = maxf(dash_cooldown_timer, 0.15)
 	is_slamming = false
 
@@ -220,7 +258,7 @@ func _do_wall_jump() -> void:
 	push_dir.y = 0.0
 	if push_dir == Vector3.ZERO:
 		push_dir = -transform.basis.z
-	push_dir = push_dir.normalized()
+		push_dir = push_dir.normalized()
 
 	velocity.y = wall_jump_up
 	velocity.x = push_dir.x * wall_jump_push
@@ -229,7 +267,7 @@ func _do_wall_jump() -> void:
 	is_sliding = false
 	is_slamming = false
 	dash_timer = 0.0
-	
+
 @onready var weapon: Node3D = $Sword
 @onready var anim_player: AnimationPlayer = $Sword/AttackAnimation
 
@@ -237,4 +275,3 @@ func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("attack"):
 		weapon.attack()
 		anim_player.play("sword_attack")
-		
