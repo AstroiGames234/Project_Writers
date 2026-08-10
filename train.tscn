@@ -31,6 +31,9 @@ albedo_texture = ExtResource("2_3bh8j")
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_fjxbk"]
 albedo_texture = ExtResource("4_l5j6f")
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3xd07"]
+albedo_texture = ExtResource("3_3ccrb")
+
 [node name="train" type="Node3D" unique_id=1192383543]
 
 [node name="CSGBox3D" type="CSGBox3D" parent="." unique_id=494130908]
@@ -417,3 +420,42 @@ material = SubResource("StandardMaterial3D_fjxbk")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.6000004, 0.09999999, -4.3999996)
 use_collision = true
 material = SubResource("StandardMaterial3D_fjxbk")
+
+[node name="CSGBox3D66" type="CSGBox3D" parent="." unique_id=1999620466]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.5005002, 2.9499998, -0.49949998)
+size = Vector3(0.001, 1.3000001, 0.001)
+
+[node name="CSGBox3D67" type="CSGBox3D" parent="." unique_id=1271972902]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.5, 2.15, -0.5)
+size = Vector3(0.2, 0.3, 0.2)
+material = SubResource("StandardMaterial3D_3xd07")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="CSGBox3D67" unique_id=1121602570]
+transform = Transform3D(1, 0, 0, 0, -1, 8.742278e-08, 0, -8.742278e-08, -1, 0, 0, 0)
+light_energy = 9.871
+light_indirect_energy = 3.059
+light_size = 0.485
+
+[node name="CSGBox3D68" type="CSGBox3D" parent="." unique_id=292511729]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.3995004, 2.9499998, -0.49949998)
+size = Vector3(0.001, 1.3000001, 0.001)
+
+[node name="CSGBox3D69" type="CSGBox3D" parent="." unique_id=802600444]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.4000006, 2.15, -0.5)
+size = Vector3(0.2, 0.3, 0.2)
+material = SubResource("StandardMaterial3D_3xd07")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="CSGBox3D69" unique_id=436214262]
+transform = Transform3D(1, 0, 0, 0, 1.1924881e-08, 1, 0, -1, 1.1924881e-08, 0, 0, 0)
+light_energy = 9.871
+light_size = 0.485
+
+[node name="CSGBox3D70" type="CSGBox3D" parent="." unique_id=881629689]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.9000006, 2.15, -2.2)
+size = Vector3(0.2, 0.3, 0.2)
+material = SubResource("StandardMaterial3D_3xd07")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="CSGBox3D70" unique_id=1540621275]
+transform = Transform3D(1, 0, 0, 0, -1, 8.742278e-08, 0, -8.742278e-08, -1, 0, 0, 0)
+light_energy = 9.871
+light_size = 0.485

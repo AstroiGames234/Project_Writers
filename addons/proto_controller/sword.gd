@@ -4,6 +4,9 @@ extends Node3D
 @export var attack_cooldown: float = 0.5
 @export var hit_start_time: float = 0.1
 @export var hit_duration: float = 0.2
+@export var lunge_start_time : float = 0.0
+@export var lunge_duration : float = 0.5
+@export var lunge_cooldown : float = 1
 
 @onready var hitbox: Area3D = $Hitbox
 @onready var hitbox_shape: CollisionShape3D = $Hitbox/CollisionShape3D
@@ -58,3 +61,23 @@ func _on_hitbox_body_entered(body: Node3D) -> void:
 
 	if body.has_method("take_damage"):
 		body.call_deferred("take_damage", damage)
+
+func lunge() -> void:
+	if not can_attack:
+		return
+
+	can_attack = false
+	already_hit.clear()
+
+	await get_tree().create_timer(lunge_start_time).timeout
+	hitbox_shape.disabled = false
+	hitbox.monitoring = true
+	hitbox.monitorable = true
+
+	await get_tree().create_timer(lunge_duration).timeout
+	hitbox.monitoring = false
+	hitbox.monitorable = false
+	hitbox_shape.disabled = true
+
+	await get_tree().create_timer(lunge_cooldown).timeout
+	can_attack = true

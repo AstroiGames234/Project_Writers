@@ -1,11 +1,11 @@
-extends Node3D
+extends Control  
 
-@onready var time_label: Label = $Control/TimeLabel
+@onready var time_label: Label = $TimeLabel  
 
 func _ready() -> void:
-	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 	if not time_label or not TimerGlobal.level_finished:
 		return
+	
 	var elapsed = TimerGlobal.level_end_time - TimerGlobal.level_start_time
 	time_label.text = _format_time(elapsed)
 

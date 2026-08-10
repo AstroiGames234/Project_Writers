@@ -1,5 +1,6 @@
 extends CharacterBody3D
 
+
 @export var mouse_sensitivity := 0.12
 
 @export var sprint_speed := 15.0
@@ -7,6 +8,8 @@ extends CharacterBody3D
 @export var air_speed := 7.0
 
 @export var ground_friction := 22.0
+@export var air_friction := 0.5
+
 @export var acceleration := 45.0
 @export var air_acceleration := 18.0
 
@@ -19,10 +22,7 @@ extends CharacterBody3D
 @export var dash_duration := 0.14
 @export var dash_cooldown := 0.35
 
-@export var slide_boost := 14.0
-@export var slide_duration := 0.8
 @export var slide_jump_boost := 5.0
-@export var slide_drag := 4.0
 
 @export var wall_jump_push := 10.0
 @export var wall_jump_up := 9.0
@@ -32,12 +32,37 @@ extends CharacterBody3D
 @export var coyote_time := 0.12
 @export var jump_buffer_time := 0.12
 
-@export var slide_speed := 24.0          
-@export var slide_max_speed := 28.0    
-@export var slide_sideways_boost := 5.0 
+
+# Slide boost
+@export var slide_boost_speed := 28.0
+@export var slide_boost_duration := 10.0
+@export var slide_steer_speed := 4.0
+@export var slide_release_grace := 0.2
+
+
+# Slide crouch
+@export var slide_crouch_amount := 0.5
+@export var crouch_transition_speed := 10.0
+
+
+# Dash invulnerability
+@export var dash_invul_duration := 0.6
+
+
+# Slam hitbox
+@export var slam_damage: int = 2
+@export var slam_hitbox_duration: float = 0.15
+
 
 @onready var head: Node3D = $Head
 @onready var camera: Camera3D = $Head/Camera3D
+@onready var weapon: Node3D = $Sword
+@onready var anim_player: AnimationPlayer = $Sword/AttackAnimation
+@onready var slam_hitbox: Area3D = $SlamHitbox
+@onready var slam_hitbox_shape: CollisionShape3D = $SlamHitbox/colission
+@onready var audio: AudioStreamPlayer3D = $AudioStreamPlayer3D
+@onready var collision_shape: CollisionShape3D = $Collider
+
 
 var head_pitch := 0.0
 var was_on_floor := false
@@ -49,7 +74,6 @@ var dash_timer := 0.0
 var dash_cooldown_timer := 0.0
 var dash_direction := Vector3.ZERO
 
-var slide_timer := 0.0
 var is_sliding := false
 var is_slamming := false
 
@@ -57,24 +81,79 @@ var wall_jump_uses_left := 3
 var wall_jump_lockout := 0.0
 var last_wall_normal := Vector3.ZERO
 
+
+# Invulnerability state
+var dash_invul_timer := 0.0
+var is_invulnerable := false
+
+
+# Slide boost state
+var slide_boost_timer := 0.0
+var slide_boost_direction := Vector3.ZERO
+var slide_boost_vector := Vector3.ZERO
+var slide_release_timer := 0.0
+
+
+# Crouch state
+var crouch_offset := 0.0
+var standing_head_y := 0.0
+var standing_shape_height := 0.0
+var standing_shape_position_y := 0.0
+
+
 func _ready() -> void:
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+
 	floor_stop_on_slope = true
 	floor_constant_speed = false
+	floor_snap_length = 0.3
+
+	slam_hitbox.monitoring = false
+	slam_hitbox.monitorable = false
+	slam_hitbox_shape.disabled = true
+
+	standing_head_y = head.position.y
+
+	if collision_shape and collision_shape.shape:
+		var shape := collision_shape.shape
+
+		if shape is CapsuleShape3D or shape is CylinderShape3D:
+			standing_shape_height = shape.height
+			standing_shape_position_y = collision_shape.position.y
+
 
 func _input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion:
 		rotate_y(deg_to_rad(-event.relative.x * mouse_sensitivity))
-		head_pitch = clamp(head_pitch - event.relative.y * mouse_sensitivity, -89.0, 89.0)
+
+		head_pitch = clamp(
+			head_pitch - event.relative.y * mouse_sensitivity,
+			-89.0,
+			89.0
+		)
+
 		head.rotation_degrees.x = head_pitch
 
 	if event.is_action_pressed("ui_cancel"):
 		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 
+
+func _unhandled_input(event: InputEvent) -> void:
+	if event.is_action_pressed("attack"):
+		weapon.attack()
+		anim_player.play("sword_attack")
+
+	if event.is_action_pressed("alt_attack"):
+		weapon.lunge()
+		anim_player.play("sword_attack")
+		_start_dash()
+
+
 func _physics_process(delta: float) -> void:
 	var on_floor := is_on_floor()
 	var on_wall := is_on_wall_only()
 
+	# Ground and coyote-time handling.
 	if on_floor:
 		coyote_timer = coyote_time
 		is_slamming = false
@@ -82,149 +161,255 @@ func _physics_process(delta: float) -> void:
 	else:
 		coyote_timer = maxf(coyote_timer - delta, 0.0)
 
+	var can_slide := on_floor or coyote_timer > 0.0
+
+	# Update timers.
 	jump_buffer_timer = maxf(jump_buffer_timer - delta, 0.0)
 	dash_cooldown_timer = maxf(dash_cooldown_timer - delta, 0.0)
 	wall_jump_lockout = maxf(wall_jump_lockout - delta, 0.0)
 
+	# Update dash invulnerability.
+	if dash_invul_timer > 0.0:
+		dash_invul_timer -= delta
+
+		if dash_invul_timer <= 0.0:
+			dash_invul_timer = 0.0
+			is_invulnerable = false
+
+	# Jump input buffer.
 	if Input.is_action_just_pressed("jump"):
 		jump_buffer_timer = jump_buffer_time
 
-	if Input.is_action_just_pressed("dash") and dash_cooldown_timer <= 0.0 and dash_timer <= 0.0:
+	# Dash input.
+	if (
+		Input.is_action_just_pressed("dash")
+		and dash_cooldown_timer <= 0.0
+		and dash_timer <= 0.0
+	):
 		_start_dash()
 
-	# ULTRAKILL-like: press crouch to start/refresh slide, hold to maintain
-	if Input.is_action_just_pressed("crouch") and on_floor:
+	# Start a slide while grounded or during coyote time.
+	if Input.is_action_just_pressed("crouch") and can_slide:
 		_start_slide()
 
-	# End slide if you let go of crouch or leave the ground
-	if not Input.is_action_pressed("crouch") or not on_floor:
-		if is_sliding:
-			is_sliding = false
-			slide_timer = 0.0
+	# Keep the slide boost alive while crouching.
+	if Input.is_action_pressed("crouch"):
+		slide_release_timer = slide_release_grace
 
-	if Input.is_action_just_pressed("crouch") and not on_floor and not is_slamming:
+	# Stop crouching when airborne or when coyote time expires.
+	if not on_floor and coyote_timer <= 0.0:
+		is_sliding = false
+	else:
+		is_sliding = false
+
+	# Keep the slide boost alive while airborne.
+	if not on_floor:
+		slide_release_timer = slide_release_grace
+	elif slide_boost_timer > 0.0:
+		slide_release_timer = maxf(slide_release_timer - delta, 0.0)
+
+	if slide_release_timer <= 0.0:
+		slide_boost_timer = 0.0
+
+	# Start a slam only when definitely airborne.
+	if (
+		Input.is_action_just_pressed("crouch")
+		and not can_slide
+		and not is_slamming
+	):
 		_start_slam()
 
-	var input_dir := Input.get_vector("move_left", "move_right", "move_forward", "move_back")
+	var input_dir := Input.get_vector(
+		"move_left",
+		"move_right",
+		"move_forward",
+		"move_back"
+	)
+
 	var wish_dir := _get_move_direction(input_dir)
 
+	# Remove the previous frame's slide boost.
+	velocity.x -= slide_boost_vector.x
+	velocity.z -= slide_boost_vector.z
+
+	if slide_boost_timer > 0.0:
+		slide_boost_timer = maxf(slide_boost_timer - delta, 0.0)
+
+		var steer_target := wish_dir
+
+		if steer_target == Vector3.ZERO:
+			steer_target = -transform.basis.z
+			steer_target.y = 0.0
+			steer_target = steer_target.normalized()
+
+		slide_boost_direction = slide_boost_direction.slerp(
+			steer_target,
+			clampf(slide_steer_speed * delta, 0.0, 1.0)
+		)
+
+		var boost_strength := (
+			slide_boost_speed
+			* (slide_boost_timer / slide_boost_duration)
+		)
+
+		slide_boost_vector = slide_boost_direction * boost_strength
+	else:
+		slide_boost_vector = Vector3.ZERO
+
+	# Dash movement.
 	if dash_timer > 0.0:
 		dash_timer -= delta
 		velocity = dash_direction * dash_speed
 		velocity.y = 0.0
+
+	# Slam movement.
 	elif is_slamming:
 		velocity.x = 0.0
 		velocity.z = 0.0
 		velocity.y = -slam_speed
+
+	# Normal movement.
 	else:
 		var target_speed := sprint_speed
-		if Input.is_action_pressed("crouch") and on_floor:
+
+		if Input.is_action_pressed("crouch") and can_slide:
 			target_speed = crouch_speed
+
 		if not on_floor:
 			target_speed = air_speed
 
-		var horizontal_velocity := Vector3(velocity.x, 0.0, velocity.z)
+		var horizontal_velocity := Vector3(
+			velocity.x,
+			0.0,
+			velocity.z
+		)
 
+		# Ground movement.
 		if on_floor:
 			if wish_dir == Vector3.ZERO:
-				horizontal_velocity = horizontal_velocity.move_toward(Vector3.ZERO, ground_friction * delta)
-			else:
-				horizontal_velocity = horizontal_velocity.move_toward(wish_dir * target_speed, acceleration * delta)
-		else:
-			if wish_dir != Vector3.ZERO:
-				horizontal_velocity = horizontal_velocity.move_toward(wish_dir * target_speed, air_acceleration * delta)
-
-		if is_sliding and on_floor:
-			# ULTRAKILL-like slide behavior:
-			# 1. Determine slide direction from input (or facing if no input)
-			var slide_dir := wish_dir
-			if slide_dir == Vector3.ZERO:
-				slide_dir = -transform.basis.z
-				slide_dir.y = 0.0
-				slide_dir = slide_dir.normalized()
-			else:
-				slide_dir = slide_dir.normalized()
-
-			# 2. Apply "slideways": slight sideways influence while sliding
-			var sideways := Vector3.ZERO
-			if input_dir != Vector2.ZERO:
-				# Left/right relative to view direction
-				var right := transform.basis.x
-				right.y = 0.0
-				right = right.normalized()
-				sideways = right * input_dir.x * slide_sideways_boost
-
-			# 3. If current speed > slide_speed, preserve momentum but bleed toward slide_speed via friction
-			var current_speed := horizontal_velocity.length()
-			var target_slide_velocity := slide_dir * slide_speed + sideways
-
-			if current_speed > slide_speed:
-				# Bleed excess speed toward slide_speed using ground_friction
 				horizontal_velocity = horizontal_velocity.move_toward(
-					horizontal_velocity.normalized() * slide_speed + sideways,
+					Vector3.ZERO,
 					ground_friction * delta
 				)
-				# Clamp to max slide speed
-				if horizontal_velocity.length() > slide_max_speed:
-					horizontal_velocity = horizontal_velocity.normalized() * slide_max_speed
 			else:
-				# Instant snap to slide speed + sideways (like ULTRAKILL's zero acceleration time)
-				horizontal_velocity = target_slide_velocity
+				horizontal_velocity = horizontal_velocity.move_toward(
+					wish_dir * target_speed,
+					acceleration * delta
+				)
+
+		# Air movement with light air friction.
+		else:
+			# Retain air_friction of the velocity every second.
+			# With air_friction = 0.5, half the velocity is retained
+			# after one second.
+			var friction_multiplier := pow(air_friction, delta)
+			horizontal_velocity *= friction_multiplier
+
+			if wish_dir != Vector3.ZERO:
+				# Check how much velocity already exists in the input direction.
+				var current_speed := horizontal_velocity.dot(wish_dir)
+
+				# Only add velocity when below the desired air speed.
+				var speed_to_add := target_speed - current_speed
+
+				if speed_to_add > 0.0:
+					var acceleration_amount := minf(
+						air_acceleration * delta,
+						speed_to_add
+					)
+
+					horizontal_velocity += wish_dir * acceleration_amount
 
 		velocity.x = horizontal_velocity.x
 		velocity.z = horizontal_velocity.z
 
-	if jump_buffer_timer > 0.0:
-		if coyote_timer > 0.0:
-			velocity.y = jump_velocity
+		# Re-apply this frame's slide boost.
+		if dash_timer <= 0.0 and not is_slamming:
+			velocity.x += slide_boost_vector.x
+			velocity.z += slide_boost_vector.z
+
+		# Normal jump or wall jump.
+		if jump_buffer_timer > 0.0:
+			if coyote_timer > 0.0:
+				velocity.y = jump_velocity
+
+				jump_buffer_timer = 0.0
+				coyote_timer = 0.0
+
+				is_sliding = false
+				is_slamming = false
+
+				audio.play()
+
+			elif on_wall and wall_jump_uses_left > 0 and wall_jump_lockout <= 0.0:
+				_do_wall_jump()
+				jump_buffer_timer = 0.0
+
+		# Slide jump.
+		if jump_buffer_timer > 0.0 and was_on_floor and is_sliding:
+			velocity.y = jump_velocity + slide_jump_boost
+
 			jump_buffer_timer = 0.0
-			coyote_timer = 0.0
 			is_sliding = false
-			is_slamming = false
-		elif on_wall and wall_jump_uses_left > 0 and wall_jump_lockout <= 0.0:
-			_do_wall_jump()
-			jump_buffer_timer = 0.0
 
-	if jump_buffer_timer > 0.0 and was_on_floor and is_sliding:
-		velocity.y = jump_velocity + slide_jump_boost
-		velocity += -transform.basis.z * slide_boost * 0.5
-		jump_buffer_timer = 0.0
-		is_sliding = false
+			audio.play()
 
+	# Gravity.
 	if not on_floor and not is_slamming:
 		velocity.y -= gravity * delta
 		velocity.y = maxf(velocity.y, -max_fall_speed)
-	elif velocity.y < 0.0 and not is_slamming:
-		velocity.y = 0.0
+	elif not is_slamming and velocity.y <= 0.0:
+		velocity.y = -2.0
 
 	move_and_slide()
 
+	# Store the latest wall normal.
 	if is_on_wall_only():
-		var c := get_last_slide_collision()
-		if c:
-			last_wall_normal = c.get_normal()
+		var collision := get_last_slide_collision()
 
+		if collision:
+			last_wall_normal = collision.get_normal()
+
+	# Stop the slam after landing.
 	if is_slamming and is_on_floor():
 		is_slamming = false
 		velocity.y = 0.0
+		_trigger_slam_hitbox()
+
+	_update_crouch(delta)
 
 	was_on_floor = on_floor
+
 
 func _get_move_direction(input_dir: Vector2) -> Vector3:
 	if input_dir == Vector2.ZERO:
 		return Vector3.ZERO
 
 	var basis := global_transform.basis
+
 	var forward := -basis.z
 	var right := basis.x
+
 	forward.y = 0.0
 	right.y = 0.0
+
 	forward = forward.normalized()
 	right = right.normalized()
-	return (right * input_dir.x + forward * input_dir.y).normalized()
+
+	return (
+		right * input_dir.x
+		+ forward * input_dir.y
+	).normalized()
+
 
 func _start_dash() -> void:
-	var input_dir := Input.get_vector("move_left", "move_right", "move_forward", "move_back")
+	var input_dir := Input.get_vector(
+		"move_left",
+		"move_right",
+		"move_forward",
+		"move_back"
+	)
+
 	var dir := _get_move_direction(input_dir)
 
 	if dir == Vector3.ZERO:
@@ -235,20 +420,68 @@ func _start_dash() -> void:
 	dash_direction = dir
 	dash_timer = dash_duration
 	dash_cooldown_timer = dash_cooldown
+
 	is_sliding = false
-	slide_timer = 0.0
 	is_slamming = false
+	slide_boost_timer = 0.0
+	slide_boost_vector = Vector3.ZERO
+
+	# Start dash invulnerability.
+	dash_invul_timer = dash_invul_duration
+	is_invulnerable = true
+
 
 func _start_slide() -> void:
 	is_sliding = true
-	# slide_timer not used for infinite slide, but kept if you want to add time-limited features later
 	dash_cooldown_timer = maxf(dash_cooldown_timer, 0.15)
 	is_slamming = false
+
+	var input_dir := Input.get_vector(
+		"move_left",
+		"move_right",
+		"move_forward",
+		"move_back"
+	)
+
+	var dir := _get_move_direction(input_dir)
+
+	if dir == Vector3.ZERO:
+		dir = -transform.basis.z
+		dir.y = 0.0
+		dir = dir.normalized()
+
+	slide_boost_direction = dir
+	slide_boost_timer = slide_boost_duration
+	slide_release_timer = slide_release_grace
+
 
 func _start_slam() -> void:
 	is_slamming = true
 	is_sliding = false
-	slide_timer = 0.0
+	slide_boost_timer = 0.0
+	slide_boost_vector = Vector3.ZERO
+
+
+func _trigger_slam_hitbox() -> void:
+	slam_hitbox.monitoring = true
+	slam_hitbox.monitorable = true
+	slam_hitbox_shape.disabled = false
+
+	# Wait one physics frame so overlaps are registered.
+	await get_tree().physics_frame
+
+	var bodies := slam_hitbox.get_overlapping_bodies()
+
+	for body in bodies:
+		if body.has_method("take_damage"):
+			body.take_damage(slam_damage)
+
+	await get_tree().create_timer(slam_hitbox_duration).timeout
+
+	slam_hitbox.monitoring = false
+	slam_hitbox.monitorable = false
+	slam_hitbox_shape.disabled = true
+
 
 func _do_wall_jump() -> void:
 	wall_jump_uses_left -= 1
@@ -256,22 +489,61 @@ func _do_wall_jump() -> void:
 
 	var push_dir := last_wall_normal
 	push_dir.y = 0.0
+
 	if push_dir == Vector3.ZERO:
 		push_dir = -transform.basis.z
-		push_dir = push_dir.normalized()
+		push_dir.y = 0.0
 
+	push_dir = push_dir.normalized()
+
+	# Preserve the current horizontal momentum.
+	var horizontal_velocity := Vector3(
+		velocity.x,
+		0.0,
+		velocity.z
+	)
+
+	# Add the wall push instead of replacing the velocity.
+	horizontal_velocity += push_dir * wall_jump_push
+
+	velocity.x = horizontal_velocity.x
+	velocity.z = horizontal_velocity.z
 	velocity.y = wall_jump_up
-	velocity.x = push_dir.x * wall_jump_push
-	velocity.z = push_dir.z * wall_jump_push
 
 	is_sliding = false
 	is_slamming = false
 	dash_timer = 0.0
+	slide_boost_timer = 0.0
+	slide_boost_vector = Vector3.ZERO
 
-@onready var weapon: Node3D = $Sword
-@onready var anim_player: AnimationPlayer = $Sword/AttackAnimation
+	audio.play()
 
-func _unhandled_input(event: InputEvent) -> void:
-	if event.is_action_pressed("attack"):
-		weapon.attack()
-		anim_player.play("sword_attack")
+
+func _update_crouch(delta: float) -> void:
+	var target_offset := slide_crouch_amount if is_sliding else 0.0
+
+	crouch_offset = move_toward(
+		crouch_offset,
+		target_offset,
+		crouch_transition_speed * delta
+	)
+
+	head.position.y = standing_head_y - crouch_offset
+
+	if collision_shape and collision_shape.shape:
+		var shape := collision_shape.shape
+
+		if shape is CapsuleShape3D or shape is CylinderShape3D:
+			shape.height = maxf(
+				standing_shape_height - crouch_offset,
+				0.2
+			)
+
+			collision_shape.position.y = (
+				standing_shape_position_y
+				- crouch_offset * 0.5
+			)
+
+
+func is_currently_invulnerable() -> bool:
+	return is_invulnerable

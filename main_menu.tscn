@@ -93,7 +93,7 @@ offset_top = 284.0
 offset_right = 2957.0
 offset_bottom = 350.0
 scale = Vector2(0.19999997, 0.27999997)
-text = "game is in pre_alpha 5 so expect shitty textures and models"
+text = "game is in pre_alpha 7 so expect shitty textures and models"
 label_settings = SubResource("LabelSettings_4uy8c")
 
 [node name="VBoxContainer2" type="VBoxContainer" parent="." unique_id=162681036]

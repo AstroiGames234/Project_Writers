@@ -7,6 +7,8 @@
 [ext_resource type="Script" uid="uid://b2g7vq0hio4mb" path="res://addons/proto_controller/area_3d.gd" id="4_6dqce"]
 [ext_resource type="Script" uid="uid://bhayawwfy8wgb" path="res://addons/proto_controller/d.gd" id="4_h60nn"]
 [ext_resource type="Script" uid="uid://dp7ookjf1ixmn" path="res://addons/proto_controller/player.gd" id="7_ujot4"]
+[ext_resource type="Script" uid="uid://b3cn1m6de5iwl" path="res://addons/proto_controller/slam_damage.gd" id="8_1tksx"]
+[ext_resource type="AudioStream" uid="uid://bpux28vl1j7gb" path="res://Sounds/jump1-1.mp3" id="9_ths8c"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_fjxbk"]
 albedo_color = Color(0, 0, 0, 1)
@@ -115,11 +117,18 @@ bg_color = Color(0, 0, 0, 1)
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jq8tk"]
 bg_color = Color(1, 0, 0, 1)
 
-[node name="ProtoController" type="CharacterBody3D" unique_id=1267460402]
+[sub_resource type="BoxShape3D" id="BoxShape3D_6fhyq"]
+size = Vector3(4.802002, 1.9697266, 5.3171387)
+
+[node name="Player" type="CharacterBody3D" unique_id=1267460402]
 script = ExtResource("1_ucva2")
 crouch_speed = 10.0
 jump_velocity = 12.0
-slide_drag = 100.0
+dash_speed = 32.0
+dash_cooldown = 1.0
+wall_jump_max_uses = 11111
+coyote_time = 0.8
+dash_invul_duration = 0.3
 
 [node name="Health" type="Node" parent="." unique_id=1587656117]
 script = ExtResource("4_h60nn")
@@ -199,3 +208,16 @@ metadata/_edit_use_anchors_ = true
 
 [node name="player" type="Node" parent="." unique_id=2104148188]
 script = ExtResource("7_ujot4")
+
+[node name="SlamHitbox" type="Area3D" parent="." unique_id=198445347]
+
+[node name="colission" type="CollisionShape3D" parent="SlamHitbox" unique_id=1855648778]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.033081055, -0.3005371, -0.3824194)
+shape = SubResource("BoxShape3D_6fhyq")
+script = ExtResource("8_1tksx")
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="." unique_id=342745443]
+stream = ExtResource("9_ths8c")
+attenuation_model = 3
+volume_db = -25.421
+pitch_scale = 1.07

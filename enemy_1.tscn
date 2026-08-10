@@ -5,6 +5,12 @@
 [ext_resource type="Script" uid="uid://7vjv77kax6rq" path="res://area_3d.gd" id="2_pjquw"]
 [ext_resource type="Script" uid="uid://bkscphwi6465k" path="res://area_3d_2.gd" id="3_663o1"]
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_pjquw"]
+size = Vector3(0.8, 2, 0.8)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_3xd07"]
+size = Vector3(2.4, 1.7, 2)
+
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_3xd07"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jq8tk"]
@@ -12,29 +18,16 @@ albedo_color = Color(1, 0, 0, 1)
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_3xd07"]
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_pjquw"]
-size = Vector3(0.8, 2, 0.8)
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_3xd07"]
-size = Vector3(2.4, 1.7, 2)
-
 [node name="Enemy_1" type="CharacterBody3D" unique_id=614772914]
 script = ExtResource("1_mbxyh")
-
-[node name="EnemyHealth" type="Node" parent="." unique_id=352817289]
-script = ExtResource("2_ovk8a")
-max_health = 0
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=287945147]
-mesh = SubResource("CapsuleMesh_3xd07")
-surface_material_override/0 = SubResource("StandardMaterial3D_jq8tk")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=992062470]
-shape = SubResource("CapsuleShape3D_3xd07")
+attack_range = 1.5
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="." unique_id=919167680]
 debug_use_custom = true
 debug_path_custom_color = Color(1, 0, 1, 1)
+
+[node name="EnemyHealth" type="Node" parent="." unique_id=352817289]
+script = ExtResource("2_ovk8a")
 
 [node name="Area3D" type="Area3D" parent="." unique_id=611986402]
 transform = Transform3D(2.9899998, 0, 0, 0, 1.15, 0, 0, 0, 2.6909997, 0.3, 0, 0)
@@ -44,10 +37,17 @@ script = ExtResource("2_pjquw")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.09999997, 0.2000001, 2.7687037e-08)
 shape = SubResource("BoxShape3D_pjquw")
 
-[node name="Area3D2" type="Area3D" parent="." unique_id=1212574368]
+[node name="Hurtbox" type="Area3D" parent="." unique_id=1212574368]
 transform = Transform3D(1.05, 0, 0, 0, 1.05, 0, 0, 0, 1.05, 0, 0, 0)
 script = ExtResource("3_663o1")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D2" unique_id=1590968664]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Hurtbox" unique_id=1590968664]
 transform = Transform3D(1.4999999, 0, 0, 0, 1.4999999, 0, 0, 0, 1.4999999, 9.934106e-08, 0.22499993, 5.6766304e-08)
 shape = SubResource("BoxShape3D_3xd07")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=287945147]
+mesh = SubResource("CapsuleMesh_3xd07")
+surface_material_override/0 = SubResource("StandardMaterial3D_jq8tk")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=992062470]
+shape = SubResource("CapsuleShape3D_3xd07")
