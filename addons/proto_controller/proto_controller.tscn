@@ -6,6 +6,7 @@
 [ext_resource type="ArrayMesh" uid="uid://cds8sjp0veun" path="res://Combat/Sword/Sword.obj" id="4_1tksx"]
 [ext_resource type="Script" uid="uid://b2g7vq0hio4mb" path="res://addons/proto_controller/area_3d.gd" id="4_6dqce"]
 [ext_resource type="Script" uid="uid://bhayawwfy8wgb" path="res://addons/proto_controller/d.gd" id="4_h60nn"]
+[ext_resource type="ArrayMesh" uid="uid://bejelfs2crul7" path="res://Models/ARM.obj" id="5_x436g"]
 [ext_resource type="Script" uid="uid://dp7ookjf1ixmn" path="res://addons/proto_controller/player.gd" id="7_ujot4"]
 [ext_resource type="Script" uid="uid://b3cn1m6de5iwl" path="res://addons/proto_controller/slam_damage.gd" id="8_1tksx"]
 [ext_resource type="AudioStream" uid="uid://bpux28vl1j7gb" path="res://Sounds/jump1-1.mp3" id="9_ths8c"]
@@ -42,54 +43,102 @@ length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("MeshInstance3D:rotation")
+tracks/0/path = NodePath("Swordmesh:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector3(-1.1614702, -0.24915972, -2.2658978)]
+"values": [Vector3(0.16685289, 1.5775951, -1.9003692)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("MeshInstance3D:position")
+tracks/1/path = NodePath("Swordmesh:rotation")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector3(1.1259553, 1.7429656, -1.4443028)]
+"values": [Vector3(-0.8127866, 1.8350073, 3.1213493)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("ARM:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0.64880764, 0.64549243, -0.107920825)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("ARM:rotation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(1.5436926, 1.8509126, -2.861574)]
 }
 
 [sub_resource type="Animation" id="Animation_1tksx"]
 resource_name = "sword_attack"
-length = 0.4
+length = 0.5
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("MeshInstance3D:rotation")
+tracks/0/path = NodePath("Swordmesh:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2, 0.4),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
+"times": PackedFloat32Array(0, 0.1, 0.15, 0.19999999, 0.21, 0.22, 0.22999999, 0.23999998, 0.25, 0.26, 0.27, 0.271, 0.272, 0.28, 0.29, 0.3, 0.31, 0.32, 0.33, 0.34, 0.35, 0.36, 0.4, 0.41, 0.42, 0.43, 0.44, 0.45, 0.46, 0.47, 0.48, 0.49, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
 "update": 0,
-"values": [Vector3(-1.1614702, -0.24915968, -2.2658978), Vector3(-0.7658611, -1.2096648, -1.3793873), Vector3(-0.76586115, -2.9100904, -1.3793871), Vector3(-0.14401972, -2.3379729, -2.8032813)]
+"values": [Vector3(0.16685289, 1.5775951, -1.9003692), Vector3(-0.34382534, 1.4775804, -1.8961397), Vector3(-0.6352758, 1.4275731, -1.894025), Vector3(-0.8545035, 1.3775659, -1.8919103), Vector3(0.38110614, 1.5777069, 0.3063116), Vector3(-0.9797383, 0.8424891, -0.77854764), Vector3(-0.82367533, 1.2596467, -1.8295584), Vector3(0.7679114, 1.0486336, -0.05926162), Vector3(-0.5553958, 1.5874853, -0.36301517), Vector3(0.4403211, 1.6294692, -0.042110145), Vector3(0.31851047, 1.6540185, 0.022210658), Vector3(0.30977654, 2.176508, -0.718097), Vector3(0.31783703, 2.2239485, -1.0603142), Vector3(0.23117018, 1.7018139, 0.081744134), Vector3(0.08898741, 1.7496092, -0.17925441), Vector3(-0.2734182, 1.7974048, -1.8940251), Vector3(-0.24842072, 1.562252, -2.0917206), Vector3(0.26212353, 1.5753931, -2.1358247), Vector3(0.78222346, 1.5885342, -1.9893692), Vector3(1.1992707, 1.6016753, -1.5829604), Vector3(1.395551, 1.6148164, -1.039623), Vector3(0.13855481, 1.614365, -0.025671124), Vector3(-0.1474219, 1.6125593, -0.19060636), Vector3(1.1026709, 1.6091034, -0.36154556), Vector3(1.6141412, 1.6919068, -1.0115032), Vector3(0.43886483, 1.6776685, 0.014594674), Vector3(1.0538452, 1.6634301, -0.05268973), Vector3(0.66944754, 1.6491917, -0.009017229), Vector3(0.41678953, 1.6349534, 0.091192424), Vector3(0.56078947, 1.620715, -0.021526515), Vector3(0.6114509, 1.6064767, 0.1607917), Vector3(1.7356855, 1.5922383, -1.0406166), Vector3(0.167, 1.578, -1.9)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("MeshInstance3D:position")
+tracks/1/path = NodePath("Swordmesh:rotation")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2, 0.4),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
+"times": PackedFloat32Array(0, 0.1, 0.15, 0.19999999, 0.21, 0.22, 0.22999999, 0.23999998, 0.25, 0.26, 0.27, 0.271, 0.272, 0.28, 0.29, 0.3, 0.31, 0.32, 0.33, 0.34, 0.35, 0.36, 0.4, 0.41, 0.42, 0.43, 0.44, 0.45, 0.46, 0.47, 0.48, 0.49, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
 "update": 0,
-"values": [Vector3(1.1259553, 1.7429656, -1.4443028), Vector3(-0.9534662, 1.7429656, -1.9199497), Vector3(1.7900838, 1.7429656, -0.8729646), Vector3(-0.19145715, 1.9210182, 0.059639454)]
+"values": [Vector3(-0.8127866, 1.8350073, 3.1213493), Vector3(-1.0339432, 2.3391874, 2.7136486), Vector3(-1.1445215, 2.5912774, 2.509798), Vector3(-1.2550997, 2.8433673, 2.3059478), Vector3(-0.28906208, -1.1227977, 2.8155727), Vector3(-0.27650514, -2.5508325, 2.5108485), Vector3(-0.71039385, 2.8093586, 2.513734), Vector3(-0.41460368, -0.8597316, 2.834123), Vector3(-0.2251331, -2.0337825, -3.0079641), Vector3(-0.4707873, -1.2029481, -3.0819402), Vector3(-0.49902537, -1.2642676, -3.1321836), Vector3(-0.51178384, -1.2812752, -2.5094013), Vector3(-0.5186324, -1.2740211, -2.1515055), Vector3(-0.6266107, -1.4343473, 3.095714), Vector3(-0.62735695, -1.6978765, -2.8540854), Vector3(-0.4777097, 1.9788942, -2.9917662), Vector3(-0.654166, 1.8700765, 3.0952709), Vector3(-0.7025554, 1.3867812, 3.0798118), Vector3(-0.7509451, 0.9034842, 3.0643525), Vector3(-0.79933465, 0.42018843, 3.0488935), Vector3(-0.8477242, -0.06310865, 3.0334342), Vector3(-0.82147115, -1.7863547, -3.132018), Vector3(-1.1745344, -2.432526, -3.0676503), Vector3(-1.1021526, -1.9725066, -2.485842), Vector3(-0.8892746, -0.75348157, -2.7805197), Vector3(-0.51263714, -1.64324, 3.1219788), Vector3(-0.5555923, -1.1464432, 3.1217887), Vector3(-0.59854746, -1.5209491, 3.1215987), Vector3(-0.64150274, -1.7749821, 3.1214087), Vector3(-0.68445796, -1.6792169, 3.1212187), Vector3(-0.727413, -1.6632193, 3.1210287), Vector3(-0.7703683, 0.08556341, 3.1208386), Vector3(-0.81332344, 1.834341, 3.1206486)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("ARM:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.11, 0.11999999, 0.13, 0.14, 0.15, 0.19999999, 0.25, 0.3, 0.35, 0.4, 0.41, 0.42, 0.43, 0.44, 0.45, 0.46, 0.47, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(0.64880764, 0.64549243, -0.107920825), Vector3(0.5690345, 0.83065975, -0.22897331), Vector3(0.7396729, 0.8491765, -0.24107856), Vector3(0.77956563, 0.8676933, -0.25318378), Vector3(0.8076689, 0.88620996, -0.26528904), Vector3(0.6438962, 0.9284444, -0.2773943), Vector3(0.5291479, 0.9232434, -0.28949955), Vector3(0.4892614, 1.0158272, -0.35002577), Vector3(0.5092047, 0.9695353, -0.31976265), Vector3(0.529148, 0.9232434, -0.28949952), Vector3(0.59017974, 0.8769516, -0.28476736), Vector3(0.65121156, 0.83065975, -0.28003517), Vector3(0.6509904, 0.8120938, -0.26283166), Vector3(0.6507693, 0.79352784, -0.24562816), Vector3(0.6505481, 0.7749618, -0.22842461), Vector3(0.65032697, 0.7563959, -0.21122111), Vector3(0.65010583, 0.7378299, -0.19401762), Vector3(0.64988464, 0.7192639, -0.17681406), Vector3(0.6496635, 0.70069796, -0.15961057), Vector3(0.649, 0.645, -0.108)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("ARM:rotation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.11, 0.11999999, 0.13, 0.14, 0.15, 0.19999999, 0.25, 0.3, 0.35, 0.4, 0.41, 0.42, 0.43, 0.44, 0.45, 0.46, 0.47, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(1.5436926, 1.8509126, -2.861574), Vector3(1.1479216, 1.9006693, -2.9411714), Vector3(1.0572689, 2.6459422, -2.397529), Vector3(1.1992224, 2.2067776, -2.9246507), Vector3(1.1436154, 2.2787127, -2.8856285), Vector3(0.9710358, 1.3915836, 2.6854582), Vector3(1.0275973, 1.2834873, 2.6562574), Vector3(0.9665351, 1.7113633, 2.9972415), Vector3(1.0875655, 0.96740496, 2.119202), Vector3(1.208596, 0.2234466, 1.2411622), Vector3(1.2644453, -0.6025045, 0.55737305), Vector3(1.3202947, -1.4284562, -0.1264165), Vector3(1.4111955, -2.1755407, -0.63540375), Vector3(1.4258263, -2.5272574, -0.88284093), Vector3(1.4404565, -2.6660523, -1.1302788), Vector3(1.4550874, -2.9811306, -1.3777158), Vector3(1.469718, 3.089002, -1.6251531), Vector3(1.4843487, 2.8412108, -1.8725909), Vector3(1.4989792, 2.5934205, -2.120028), Vector3(1.5428711, 1.850049, -2.86234)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_ths8c"]
@@ -140,8 +189,8 @@ attack_cooldown = 0.15
 hit_start_time = 0.0
 hit_duration = 0.4
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Sword" unique_id=270269640]
-transform = Transform3D(-0.53384966, 0.34524778, -0.049070228, -0.20539863, -0.14682174, 0.4586942, 0.35270354, 0.43706232, 0.19285046, 1.1259553, 1.7429656, -1.4443028)
+[node name="Swordmesh" type="MeshInstance3D" parent="Sword" unique_id=270269640]
+transform = Transform3D(0.16591956, 0.40674064, 0.33180952, 0.009351453, -0.39590526, 0.36310166, 0.65112656, -0.097959355, -0.089766294, 0.16685289, 1.5775951, -1.9003692)
 mesh = ExtResource("4_1tksx")
 surface_material_override/0 = SubResource("StandardMaterial3D_fjxbk")
 surface_material_override/1 = SubResource("StandardMaterial3D_3jhf0")
@@ -151,6 +200,10 @@ surface_material_override/4 = SubResource("StandardMaterial3D_e0n1a")
 surface_material_override/5 = SubResource("StandardMaterial3D_2g1yb")
 surface_material_override/6 = SubResource("StandardMaterial3D_0lcl8")
 surface_material_override/7 = SubResource("StandardMaterial3D_p1166")
+
+[node name="ARM" type="MeshInstance3D" parent="Sword" unique_id=1043289219]
+transform = Transform3D(3.304963e-05, -0.251524, 0.00543201, -0.0012688583, -0.006553132, -0.2084928, 0.16940583, -1.4997086e-08, -0.0015626815, 0.64880764, 0.64549243, -0.107920825)
+mesh = ExtResource("5_x436g")
 
 [node name="Hitbox" type="Area3D" parent="Sword" unique_id=364997522]
 
