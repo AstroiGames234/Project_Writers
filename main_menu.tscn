@@ -4,6 +4,7 @@
 [ext_resource type="Script" uid="uid://bvaoievg82jcy" path="res://main_menu.gd" id="2_7vrkn"]
 [ext_resource type="FontFile" uid="uid://d1rk3vxurt3iq" path="res://VCR_OSD_MONO_1.001.ttf" id="3_fu7sn"]
 [ext_resource type="Script" uid="uid://6k8j1s2u1uoa" path="res://v_box_container_2.gd" id="4_jix8l"]
+[ext_resource type="ArrayMesh" uid="uid://cds8sjp0veun" path="res://Combat/Sword/Sword.obj" id="5_glbon"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_7vrkn"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -17,13 +18,6 @@ background_mode = 2
 sky = SubResource("Sky_fu7sn")
 glow_enabled = true
 
-[sub_resource type="CapsuleMesh" id="CapsuleMesh_ujot4"]
-
-[sub_resource type="Skin" id="Skin_1tksx"]
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ths8c"]
-albedo_color = Color(0, 1, 0, 1)
-
 [sub_resource type="LabelSettings" id="LabelSettings_1c2u7"]
 font = ExtResource("3_fu7sn")
 font_size = 33
@@ -32,6 +26,22 @@ font_color = Color(1, 0.34509805, 0, 1)
 [sub_resource type="LabelSettings" id="LabelSettings_4uy8c"]
 font = ExtResource("3_fu7sn")
 font_size = 75
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_glbon"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_nlkkf"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qe12f"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8qtwp"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_dy7ct"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0o4t1"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0k4wn"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_j5v2v"]
 
 [node name="menu" type="Node3D" unique_id=364623609]
 script = ExtResource("1_fu7sn")
@@ -42,12 +52,6 @@ environment = SubResource("Environment_jix8l")
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1954476564]
 transform = Transform3D(-0.9961947, -0.062905475, 0.060324177, 0, 0.69214314, 0.7217602, -0.08715564, 0.7190137, -0.68950933, 0, 0, 0)
 shadow_enabled = true
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1914803519]
-transform = Transform3D(24.128, 0, 0, 0, 24.024002, 0, 0, 0, 22.152315, 0, 13.7, 0)
-mesh = SubResource("CapsuleMesh_ujot4")
-skin = SubResource("Skin_1tksx")
-surface_material_override/0 = SubResource("StandardMaterial3D_ths8c")
 
 [node name="Camera3D" type="Camera3D" parent="." unique_id=1085009086]
 transform = Transform3D(1, 0, 0, 0, 0.8660254, 0.5, 0, -0.5, 0.8660254, -2.6000001, 66.100006, 77.7)
@@ -110,6 +114,18 @@ text = "Discord"
 [node name="yt" type="Button" parent="VBoxContainer2" unique_id=1721380272]
 layout_mode = 2
 text = "SUBSCIRBE"
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1956694428]
+transform = Transform3D(10.410119, 0, 0, 0, -11.122993, 9.83528, 0, -13.255868, -8.252782, -18.000002, 33.300003, 0)
+mesh = ExtResource("5_glbon")
+surface_material_override/0 = SubResource("StandardMaterial3D_glbon")
+surface_material_override/1 = SubResource("StandardMaterial3D_nlkkf")
+surface_material_override/2 = SubResource("StandardMaterial3D_qe12f")
+surface_material_override/3 = SubResource("StandardMaterial3D_8qtwp")
+surface_material_override/4 = SubResource("StandardMaterial3D_dy7ct")
+surface_material_override/5 = SubResource("StandardMaterial3D_0o4t1")
+surface_material_override/6 = SubResource("StandardMaterial3D_0k4wn")
+surface_material_override/7 = SubResource("StandardMaterial3D_j5v2v")
 
 [connection signal="pressed" from="VBoxContainer/play" to="VBoxContainer" method="_on_play_pressed"]
 [connection signal="pressed" from="VBoxContainer/quit" to="VBoxContainer" method="_on_quit_pressed"]
