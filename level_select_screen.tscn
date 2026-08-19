@@ -1,0 +1,59 @@
+[gd_scene format=3 uid="uid://07kdfp7bnqwd"]
+
+[ext_resource type="Script" uid="uid://da5gcrd3v1suo" path="res://select.gd" id="1_oumdo"]
+[ext_resource type="Script" uid="uid://b3u0b7yi0o71x" path="res://fade_in.gd" id="2_1t76i"]
+[ext_resource type="Script" uid="uid://dxqosheq3gh3q" path="res://patch.gd" id="2_a4x7i"]
+
+[node name="level select screen" type="Node3D" unique_id=842400278]
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=1086984348]
+offset_left = 91.0
+offset_top = 87.0
+offset_right = 160.0
+offset_bottom = 153.0
+script = ExtResource("1_oumdo")
+
+[node name="tutorial" type="Button" parent="VBoxContainer" unique_id=1224736456]
+layout_mode = 2
+text = "Tutorial"
+
+[node name="levle1" type="Button" parent="VBoxContainer" unique_id=1526165241]
+layout_mode = 2
+text = "Level1"
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="." unique_id=404951120]
+offset_left = 8.0
+offset_top = 591.00006
+offset_right = 53.0
+offset_bottom = 631.00006
+scale = Vector2(1.5008028, 1.2569754)
+script = ExtResource("2_a4x7i")
+
+[node name="Button" type="Button" parent="VBoxContainer2" unique_id=16103775]
+layout_mode = 2
+text = "Back"
+
+[node name="Control" type="Control" parent="." unique_id=82379709]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("2_1t76i")
+fade_in_time = 0.5
+
+[node name="FadeRect" type="ColorRect" parent="Control" unique_id=1166386944]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 1)
+
+[connection signal="pressed" from="VBoxContainer/tutorial" to="VBoxContainer" method="_on_tutorial_pressed"]
+[connection signal="pressed" from="VBoxContainer/levle1" to="VBoxContainer" method="_on_levle_1_pressed"]
+[connection signal="pressed" from="VBoxContainer2/Button" to="VBoxContainer2" method="_on_button_pressed"]

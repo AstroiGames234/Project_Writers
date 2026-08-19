@@ -1,0 +1,61 @@
+[gd_scene format=3 uid="uid://buykc12dh753h"]
+
+[ext_resource type="Script" uid="uid://35kfmpsnu5aw" path="res://sword_throw.gd" id="1_n7n1s"]
+[ext_resource type="PackedScene" uid="uid://dfgbgq0ufucnl" path="res://Combat/Sword/sword_projectile.tscn" id="2_2vwdp"]
+[ext_resource type="ArrayMesh" uid="uid://cds8sjp0veun" path="res://Combat/Sword/Sword.obj" id="2_n7n1s"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3xd07"]
+albedo_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jq8tk"]
+albedo_color = Color(1, 0.72156864, 0, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6fhyq"]
+albedo_color = Color(1, 0.72156864, 0, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_dwbtc"]
+albedo_color = Color(1, 0.72156864, 0, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_h83rl"]
+albedo_color = Color(1, 0.72156864, 0, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_j0ogg"]
+albedo_color = Color(1, 0.72156864, 0, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_t7n2i"]
+albedo_color = Color(1, 0.72156864, 0, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_cdwd0"]
+albedo_color = Color(0.95686275, 1, 0.93333334, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_jq8tk"]
+size = Vector3(4.0146484, 2.4663086, 3.7383149)
+
+[node name="Sword" type="Node3D" unique_id=1908016970]
+script = ExtResource("1_n7n1s")
+throw_projectile_scene = ExtResource("2_2vwdp")
+throw_damage = 3
+weapon_name = "Sword Throw"
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1306568633]
+transform = Transform3D(-0.06330946, 0, -0.6971311, 0, 0.7, 0, 0.6971311, 0, -0.06330946, 0.5011804, -1.6777323, -0.8444582)
+mesh = ExtResource("2_n7n1s")
+surface_material_override/0 = SubResource("StandardMaterial3D_3xd07")
+surface_material_override/1 = SubResource("StandardMaterial3D_jq8tk")
+surface_material_override/2 = SubResource("StandardMaterial3D_6fhyq")
+surface_material_override/3 = SubResource("StandardMaterial3D_dwbtc")
+surface_material_override/4 = SubResource("StandardMaterial3D_h83rl")
+surface_material_override/5 = SubResource("StandardMaterial3D_j0ogg")
+surface_material_override/6 = SubResource("StandardMaterial3D_t7n2i")
+surface_material_override/7 = SubResource("StandardMaterial3D_cdwd0")
+
+[node name="Hitbox" type="Area3D" parent="." unique_id=1549032643]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Hitbox" unique_id=836276922]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.007944465, 0.6812047, -1.7199165)
+shape = SubResource("BoxShape3D_jq8tk")
+
+[node name="WeaponBase" type="Node3D" parent="." unique_id=1424862445]
+
+[node name="Muzzle" type="Marker3D" parent="." unique_id=1973292176]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.19588488, -1.348515)

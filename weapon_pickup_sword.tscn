@@ -1,0 +1,25 @@
+[gd_scene format=3 uid="uid://13mq622qj3ps"]
+
+[ext_resource type="Script" uid="uid://btejx0lhfsesm" path="res://weapon_pickup.gd" id="1_thgvg"]
+[ext_resource type="Resource" uid="uid://b2kkiivrqg3pb" path="res://Combat/Sword/sword_variants.tres" id="2_freqm"]
+[ext_resource type="ArrayMesh" uid="uid://cds8sjp0veun" path="res://Combat/Sword/Sword.obj" id="3_wnjns"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_3xd07"]
+
+[node name="WeaponPickup" type="Area3D" unique_id=1224451536]
+collision_layer = 4
+script = ExtResource("1_thgvg")
+weapon_set = ExtResource("2_freqm")
+bob_speed = 0.0
+rotate_speed = 0.0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1909064373]
+shape = SubResource("BoxShape3D_3xd07")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=23756184]
+transform = Transform3D(-0.24248707, 0.109999985, 0, -0.13999997, -0.19052559, 0, 0, 0, 0.2016, -0.35, 0.9, 0)
+mesh = ExtResource("3_wnjns")
+
+[node name="CSGBox3D" type="CSGBox3D" parent="." unique_id=86417486]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.049999982, -0.15, -0.050000012)
+size = Vector3(0.3, 0.7, 0.5)

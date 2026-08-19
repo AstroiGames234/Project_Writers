@@ -22,6 +22,8 @@ extends CharacterBody3D
 @export var dash_duration := 0.14
 @export var dash_cooldown := 0.35
 
+@export var lunge_cooldown := 0.6
+
 @export var slide_jump_boost := 5.0
 
 @export var wall_jump_push := 10.0
@@ -56,8 +58,12 @@ extends CharacterBody3D
 
 @onready var head: Node3D = $Head
 @onready var camera: Camera3D = $Head/Camera3D
-@onready var weapon: Node3D = $Sword
-@onready var anim_player: AnimationPlayer = $Sword/AttackAnimation
+
+# NOTE: adjust this path to wherever WeaponHolder actually lives in your
+# tree. Based on our earlier setup it should be:
+# Head/Camera3D/HandPivot/WeaponHolder
+@onready var weapon_manager: Node3D = $Head/Camera3D/HandPivot/WeaponHolder
+
 @onready var slam_hitbox: Area3D = $SlamHitbox
 @onready var slam_hitbox_shape: CollisionShape3D = $SlamHitbox/colission
 @onready var audio: AudioStreamPlayer3D = $AudioStreamPlayer3D
@@ -73,6 +79,8 @@ var jump_buffer_timer := 0.0
 var dash_timer := 0.0
 var dash_cooldown_timer := 0.0
 var dash_direction := Vector3.ZERO
+
+var lunge_cooldown_timer := 0.0
 
 var is_sliding := false
 var is_slamming := false
@@ -135,18 +143,36 @@ func _input(event: InputEvent) -> void:
 		head.rotation_degrees.x = head_pitch
 
 	if event.is_action_pressed("ui_cancel"):
-		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+		pass
 
 
 func _unhandled_input(event: InputEvent) -> void:
-	if event.is_action_pressed("attack"):
-		weapon.attack()
-		anim_player.play("sword_attack")
+	# --- Weapon switching ---
+	if event.is_action_pressed("weapon_1"):
+		weapon_manager.switch_to(0)
+	elif event.is_action_pressed("weapon_2"):
+		weapon_manager.switch_to(1)
+	elif event.is_action_pressed("switch_variant"):
+		weapon_manager.cycle_variant()
 
-	if event.is_action_pressed("alt_attack"):
-		weapon.lunge()
-		anim_player.play("sword_attack")
-		_start_dash()
+	# --- Attacks ---
+	# Primary attack: whatever the currently equipped weapon does on
+	# primary_attack() (sword swing, dagger throw, etc). The weapon's own
+	# script is responsible for playing its own animation.
+	if event.is_action_pressed("attack_primary"):
+		weapon_manager.fire_primary()
+
+	# Secondary attack: e.g. the sword's lunge. Movement (the dash) still
+	# lives here in the player script since it's not weapon-specific, but
+	# the weapon's own secondary_attack() handles its side of it
+	# (animation, extra damage, whatever).
+	if event.is_action_pressed("attack_secondary") and lunge_cooldown_timer <= 0.0:
+		var w = weapon_manager.current_weapon()
+		weapon_manager.fire_secondary()
+		if w and w.secondary_uses_dash:
+			lunge_cooldown_timer = lunge_cooldown
+			_start_dash()
+		
 
 
 func _physics_process(delta: float) -> void:
@@ -167,6 +193,7 @@ func _physics_process(delta: float) -> void:
 	jump_buffer_timer = maxf(jump_buffer_timer - delta, 0.0)
 	dash_cooldown_timer = maxf(dash_cooldown_timer - delta, 0.0)
 	wall_jump_lockout = maxf(wall_jump_lockout - delta, 0.0)
+	lunge_cooldown_timer = maxf(lunge_cooldown_timer - delta, 0.0)
 
 	# Update dash invulnerability.
 	if dash_invul_timer > 0.0:
@@ -196,11 +223,12 @@ func _physics_process(delta: float) -> void:
 	if Input.is_action_pressed("crouch"):
 		slide_release_timer = slide_release_grace
 
-	# Stop crouching when airborne or when coyote time expires.
-	if not on_floor and coyote_timer <= 0.0:
-		is_sliding = false
-	else:
-		is_sliding = false
+	# Stop sliding when airborne past coyote time, or when crouch is released.
+	if is_sliding:
+		if not on_floor and coyote_timer <= 0.0:
+			is_sliding = false
+		elif not Input.is_action_pressed("crouch"):
+			is_sliding = false
 
 	# Keep the slide boost alive while airborne.
 	if not on_floor:
@@ -235,17 +263,14 @@ func _physics_process(delta: float) -> void:
 	if slide_boost_timer > 0.0:
 		slide_boost_timer = maxf(slide_boost_timer - delta, 0.0)
 
-		var steer_target := wish_dir
-
-		if steer_target == Vector3.ZERO:
-			steer_target = -transform.basis.z
-			steer_target.y = 0.0
-			steer_target = steer_target.normalized()
-
-		slide_boost_direction = slide_boost_direction.slerp(
-			steer_target,
-			clampf(slide_steer_speed * delta, 0.0, 1.0)
-		)
+		# Only steer the slide boost when a movement key is actually
+		# held. With no input, keep the current direction instead of
+		# drifting toward wherever the camera happens to be facing.
+		if wish_dir != Vector3.ZERO:
+			slide_boost_direction = slide_boost_direction.slerp(
+				wish_dir,
+				clampf(slide_steer_speed * delta, 0.0, 1.0)
+			)
 
 		var boost_strength := (
 			slide_boost_speed
@@ -547,3 +572,6 @@ func _update_crouch(delta: float) -> void:
 
 func is_currently_invulnerable() -> bool:
 	return is_invulnerable
+
+func get_weapon_manager() -> Node:
+	return weapon_manager

@@ -1,0 +1,72 @@
+[gd_scene format=3 uid="uid://ov8405d1nfw8"]
+
+[ext_resource type="Script" uid="uid://bd5utvt5jhs7c" path="res://addons/proto_controller/sword.gd" id="1_sssrl"]
+[ext_resource type="ArrayMesh" uid="uid://cds8sjp0veun" path="res://Combat/Sword/Sword.obj" id="2_a2axu"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_fjxbk"]
+albedo_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3jhf0"]
+albedo_color = Color(1, 0.654902, 0, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jl3d8"]
+albedo_color = Color(1, 0.654902, 0, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_58k54"]
+albedo_color = Color(1, 0.654902, 0, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_e0n1a"]
+albedo_color = Color(1, 0.654902, 0, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2g1yb"]
+albedo_color = Color(1, 0.654902, 0, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0lcl8"]
+albedo_color = Color(1, 0.654902, 0, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_p1166"]
+albedo_color = Color(0.8980392, 1, 1, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_jq8tk"]
+size = Vector3(4.0146484, 2.4663086, 3.7383149)
+
+[sub_resource type="Animation" id="Animation_ujot4"]
+length = 0.001
+
+[sub_resource type="Animation" id="Animation_1tksx"]
+resource_name = "sword_attack"
+length = 0.4
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ths8c"]
+_data = {
+&"RESET": SubResource("Animation_ujot4"),
+&"sword_attack": SubResource("Animation_1tksx")
+}
+
+[node name="Sword" type="Node3D" unique_id=1873386754]
+script = ExtResource("1_sssrl")
+attack_cooldown = 0.15
+hit_start_time = 0.0
+hit_duration = 0.4
+
+[node name="Swordmesh" type="MeshInstance3D" parent="." unique_id=1831947721]
+transform = Transform3D(-0.037749063, 0, -0.9992872, 0, 0.99999994, 0, 0.9992872, 0, -0.037749063, 0.8249047, -0.40514565, -3.168312)
+mesh = ExtResource("2_a2axu")
+surface_material_override/0 = SubResource("StandardMaterial3D_fjxbk")
+surface_material_override/1 = SubResource("StandardMaterial3D_3jhf0")
+surface_material_override/2 = SubResource("StandardMaterial3D_jl3d8")
+surface_material_override/3 = SubResource("StandardMaterial3D_58k54")
+surface_material_override/4 = SubResource("StandardMaterial3D_e0n1a")
+surface_material_override/5 = SubResource("StandardMaterial3D_2g1yb")
+surface_material_override/6 = SubResource("StandardMaterial3D_0lcl8")
+surface_material_override/7 = SubResource("StandardMaterial3D_p1166")
+
+[node name="Hitbox" type="Area3D" parent="." unique_id=1327134558]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.3236642, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Hitbox" unique_id=1162092476]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.007944465, 0.6812047, -1.7199165)
+shape = SubResource("BoxShape3D_jq8tk")
+
+[node name="AttackAnimation" type="AnimationPlayer" parent="." unique_id=2129610984]
+libraries/ = SubResource("AnimationLibrary_ths8c")

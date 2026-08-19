@@ -1,0 +1,19 @@
+[gd_scene format=3 uid="uid://7gcinp2nk6h4"]
+
+[ext_resource type="Script" uid="uid://c4ng0nofccfa7" path="res://daggers.gd" id="1_t0f3x"]
+[ext_resource type="ArrayMesh" uid="uid://c1obn58bnykhw" path="res://temp_dagger.obj" id="2_plraq"]
+[ext_resource type="Script" uid="uid://cl0wws6lqta02" path="res://weapon_base.gd" id="3_plraq"]
+
+[node name="Daggers" type="Node3D" unique_id=2105910939]
+script = ExtResource("1_t0f3x")
+
+[node name="ModelOffset" type="Node3D" parent="." unique_id=2127133958]
+
+[node name="DaggerMesh" type="MeshInstance3D" parent="ModelOffset" unique_id=193832626]
+mesh = ExtResource("2_plraq")
+
+[node name="ThrowPoint" type="Marker3D" parent="." unique_id=1754200283]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.71243215, 0)
+
+[node name="WeaponBase" type="Node3D" parent="." unique_id=542924262]
+script = ExtResource("3_plraq")

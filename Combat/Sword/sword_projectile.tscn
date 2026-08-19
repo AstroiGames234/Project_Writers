@@ -1,0 +1,18 @@
+[gd_scene format=3 uid="uid://dfgbgq0ufucnl"]
+
+[ext_resource type="Script" uid="uid://dd4a7vrk17j8p" path="res://sword_projectile.gd" id="1_fm41o"]
+[ext_resource type="ArrayMesh" uid="uid://cds8sjp0veun" path="res://Combat/Sword/Sword.obj" id="2_ogvgt"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_3xd07"]
+size = Vector3(2.616211, 0.61279297, 3.0107422)
+
+[node name="SwordProjectile" type="Area3D" unique_id=472354189]
+script = ExtResource("1_fm41o")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1577840271]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.122558594, 0.19360352, -1.0053711)
+shape = SubResource("BoxShape3D_3xd07")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1002128564]
+transform = Transform3D(0.36506882, -0.31575054, 0.0036239594, 0, 0.0037558046, 0.47097546, -0.49411446, -0.23328741, 0.0026775058, 0.5340247, 0, -0.6079849)
+mesh = ExtResource("2_ogvgt")

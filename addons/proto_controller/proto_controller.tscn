@@ -2,150 +2,15 @@
 
 [ext_resource type="Script" uid="uid://but0bobnc0uhf" path="res://addons/proto_controller/proto_controller.gd" id="1_ucva2"]
 [ext_resource type="Script" uid="uid://dy2l1y1ngjx7k" path="res://addons/proto_controller/progress_bar.gd" id="2_5hfox"]
-[ext_resource type="Script" uid="uid://bd5utvt5jhs7c" path="res://addons/proto_controller/sword.gd" id="2_h60nn"]
-[ext_resource type="ArrayMesh" uid="uid://cds8sjp0veun" path="res://Combat/Sword/Sword.obj" id="4_1tksx"]
 [ext_resource type="Script" uid="uid://b2g7vq0hio4mb" path="res://addons/proto_controller/area_3d.gd" id="4_6dqce"]
 [ext_resource type="Script" uid="uid://bhayawwfy8wgb" path="res://addons/proto_controller/d.gd" id="4_h60nn"]
+[ext_resource type="Script" uid="uid://di2y1wmv73ub2" path="res://addons/proto_controller/hand_pivot.gd" id="4_q1ipm"]
+[ext_resource type="Script" uid="uid://qaem2h2takcu" path="res://addons/proto_controller/weapon_mananger.gd" id="4_x436g"]
 [ext_resource type="ArrayMesh" uid="uid://bejelfs2crul7" path="res://Models/ARM.obj" id="5_x436g"]
 [ext_resource type="Script" uid="uid://dp7ookjf1ixmn" path="res://addons/proto_controller/player.gd" id="7_ujot4"]
 [ext_resource type="Script" uid="uid://b3cn1m6de5iwl" path="res://addons/proto_controller/slam_damage.gd" id="8_1tksx"]
+[ext_resource type="Script" uid="uid://db5cets5ok64d" path="res://addons/proto_controller/variant_label.gd" id="8_q1ipm"]
 [ext_resource type="AudioStream" uid="uid://bpux28vl1j7gb" path="res://Sounds/jump1-1.mp3" id="9_ths8c"]
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_fjxbk"]
-albedo_color = Color(0, 0, 0, 1)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3jhf0"]
-albedo_color = Color(1, 0.654902, 0, 1)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jl3d8"]
-albedo_color = Color(1, 0.654902, 0, 1)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_58k54"]
-albedo_color = Color(1, 0.654902, 0, 1)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_e0n1a"]
-albedo_color = Color(1, 0.654902, 0, 1)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2g1yb"]
-albedo_color = Color(1, 0.654902, 0, 1)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0lcl8"]
-albedo_color = Color(1, 0.654902, 0, 1)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_p1166"]
-albedo_color = Color(0.8980392, 1, 1, 1)
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_jq8tk"]
-size = Vector3(4.0146484, 2.4663086, 3.7383149)
-
-[sub_resource type="Animation" id="Animation_ujot4"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Swordmesh:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(0.167, 1.578, -1.9)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("ARM:position")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(0.649, 0.645, -0.108)]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("Swordmesh:rotation")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(-0.81332344, 1.834341, 3.1206486)]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("ARM:rotation")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(1.5428711, 1.850049, -2.86234)]
-}
-
-[sub_resource type="Animation" id="Animation_1tksx"]
-resource_name = "sword_attack"
-length = 0.4
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Swordmesh:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.2, 0.4),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [Vector3(0.167, 1.578, -1.9), Vector3(0.167, 1.578, -2.6766355), Vector3(0.167, 1.578, -1.9)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("ARM:position")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.2, 0.4),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [Vector3(0.649, 0.645, -0.108), Vector3(0.649, 0.645, -0.8846355), Vector3(0.649, 0.645, -0.108)]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("Swordmesh:rotation")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.2, 0.4),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [Vector3(-0.81332344, 1.834341, 3.1206486), Vector3(-0.8133235, 1.834341, 3.1206486), Vector3(-0.81332344, 1.834341, 3.1206486)]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("ARM:rotation")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0, 0.2, 0.4),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [Vector3(1.5428711, 1.850049, -2.86234), Vector3(1.5428715, 1.850049, -2.86234), Vector3(1.5428711, 1.850049, -2.86234)]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_ths8c"]
-_data = {
-&"RESET": SubResource("Animation_ujot4"),
-&"sword_attack": SubResource("Animation_1tksx")
-}
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_iof21"]
 albedo_color = Color(0, 1, 0, 1)
@@ -177,42 +42,11 @@ dash_speed = 32.0
 dash_cooldown = 1.0
 wall_jump_max_uses = 11111
 coyote_time = 0.8
+slide_boost_speed = 20.0
 dash_invul_duration = 0.3
 
 [node name="Health" type="Node" parent="." unique_id=1587656117]
 script = ExtResource("4_h60nn")
-
-[node name="Sword" type="Node3D" parent="." unique_id=1614381822]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.17541063, 0)
-script = ExtResource("2_h60nn")
-attack_cooldown = 0.15
-hit_start_time = 0.0
-hit_duration = 0.4
-
-[node name="Swordmesh" type="MeshInstance3D" parent="Sword" unique_id=270269640]
-transform = Transform3D(0.16514811, 0.40711007, 0.3316808, 0.009669616, -0.3956748, 0.36328593, 0.6513181, -0.097352475, -0.08949435, 0.167, 1.578, -1.9)
-mesh = ExtResource("4_1tksx")
-surface_material_override/0 = SubResource("StandardMaterial3D_fjxbk")
-surface_material_override/1 = SubResource("StandardMaterial3D_3jhf0")
-surface_material_override/2 = SubResource("StandardMaterial3D_jl3d8")
-surface_material_override/3 = SubResource("StandardMaterial3D_58k54")
-surface_material_override/4 = SubResource("StandardMaterial3D_e0n1a")
-surface_material_override/5 = SubResource("StandardMaterial3D_2g1yb")
-surface_material_override/6 = SubResource("StandardMaterial3D_0lcl8")
-surface_material_override/7 = SubResource("StandardMaterial3D_p1166")
-
-[node name="ARM" type="MeshInstance3D" parent="Sword" unique_id=1043289219]
-transform = Transform3D(1.7499235e-05, -0.2515186, 0.005597991, -0.0013038225, -0.006753179, -0.20848806, 0.1694055, -2.598994e-05, -0.001605198, 0.649, 0.645, -0.108)
-mesh = ExtResource("5_x436g")
-
-[node name="Hitbox" type="Area3D" parent="Sword" unique_id=364997522]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Sword/Hitbox" unique_id=1643631751]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.007944465, 0.6812047, -1.7199165)
-shape = SubResource("BoxShape3D_jq8tk")
-
-[node name="AttackAnimation" type="AnimationPlayer" parent="Sword" unique_id=1571664844]
-libraries/ = SubResource("AnimationLibrary_ths8c")
 
 [node name="Mesh" type="MeshInstance3D" parent="." unique_id=1493799394]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)
@@ -228,8 +62,18 @@ shape = SubResource("CapsuleShape3D_iof21")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7, 0)
 
 [node name="Camera3D" type="Camera3D" parent="Head" unique_id=1858925732]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0011110306, 0.0040819645, -0.001427412)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2.3841858e-07, 0)
 fov = 90.0
+
+[node name="HandPivot" type="Node3D" parent="Head/Camera3D" unique_id=1649003909]
+script = ExtResource("4_q1ipm")
+
+[node name="WeaponHolder" type="Node3D" parent="Head/Camera3D/HandPivot" unique_id=849888865]
+script = ExtResource("4_x436g")
+
+[node name="ARM" type="MeshInstance3D" parent="Head/Camera3D/HandPivot/WeaponHolder" unique_id=1043289219]
+transform = Transform3D(1.7499235e-05, -0.2515186, 0.005597991, -0.0013038225, -0.006753179, -0.20848806, 0.1694055, -2.598994e-05, -0.001605198, 0.649, -0.6736181, -0.108)
+mesh = ExtResource("5_x436g")
 
 [node name="Hurtbox" type="Area3D" parent="." unique_id=925672254]
 script = ExtResource("4_6dqce")
@@ -258,6 +102,19 @@ theme_override_styles/fill = SubResource("StyleBoxFlat_jq8tk")
 value = 100.0
 show_percentage = false
 metadata/_edit_use_anchors_ = true
+
+[node name="VariantLabel" type="Label" parent="CanvasLayer" unique_id=1183028788]
+offset_left = 66.0
+offset_top = 420.0
+offset_right = 200.0
+offset_bottom = 521.0
+scale = Vector2(1.2289346, 1.2425666)
+text = "hey, your weapon
+will be displayed
+here in the next
+update"
+script = ExtResource("8_q1ipm")
+weapon_manager = NodePath("../../Head/Camera3D/HandPivot/WeaponHolder")
 
 [node name="player" type="Node" parent="." unique_id=2104148188]
 script = ExtResource("7_ujot4")

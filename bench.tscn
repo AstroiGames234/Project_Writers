@@ -1,0 +1,26 @@
+[gd_scene format=3 uid="uid://dnof7oidumoyr"]
+
+[ext_resource type="Texture2D" uid="uid://ci2w2rtgvrhow" path="res://Textures/wdcorl0.jpg" id="1_3f1fh"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3xd07"]
+albedo_texture = ExtResource("1_3f1fh")
+
+[node name="bench" type="Node3D" unique_id=1933242798]
+
+[node name="CSGBox3D" type="CSGBox3D" parent="." unique_id=81205089]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.65000004, 0.19999999, 0.10000008)
+use_collision = true
+size = Vector3(0.3, 1.4, 1.4)
+material = SubResource("StandardMaterial3D_3xd07")
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="." unique_id=2099970537]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.5500002, 0.19999999, 0.10000008)
+use_collision = true
+size = Vector3(0.3, 1.4, 1.4)
+material = SubResource("StandardMaterial3D_3xd07")
+
+[node name="CSGBox3D3" type="CSGBox3D" parent="." unique_id=549229520]
+transform = Transform3D(7.4505806e-08, -1.0000001, 0, 1.0000001, 7.4505806e-08, 0, 0, 0, 1, 1.4749999, 0.75, 0.10000008)
+use_collision = true
+size = Vector3(0.35, 4.55, 1.4)
+material = SubResource("StandardMaterial3D_3xd07")

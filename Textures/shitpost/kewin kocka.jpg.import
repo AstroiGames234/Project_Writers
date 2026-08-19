@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://nrgrkocdg44s"
-path.s3tc="res://.godot/imported/dlv_stonebrk5f.bmp-9f054e0b61e7f899b107629f3b221b84.s3tc.ctex"
+uid="uid://4qtqy2ru0vy"
+path.s3tc="res://.godot/imported/kewin kocka.jpg-fdcb2773045b76d1ce9f7eb10d5021b4.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://Textures/dlv_stonebrk5f.bmp"
-dest_files=["res://.godot/imported/dlv_stonebrk5f.bmp-9f054e0b61e7f899b107629f3b221b84.s3tc.ctex"]
+source_file="res://Textures/shitpost/kewin kocka.jpg"
+dest_files=["res://.godot/imported/kewin kocka.jpg-fdcb2773045b76d1ce9f7eb10d5021b4.s3tc.ctex"]
 
 [params]
 

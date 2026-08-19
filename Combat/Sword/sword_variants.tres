@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="WeaponVariantSet" format=3 uid="uid://b2kkiivrqg3pb"]
+
+[ext_resource type="Script" uid="uid://bbbo7cju0mtbr" path="res://Combat/weapon_variant_set.gd" id="1_ado8a"]
+[ext_resource type="PackedScene" uid="uid://b3553rusluvki" path="res://sword_lunge.tscn" id="2_60fpg"]
+[ext_resource type="PackedScene" uid="uid://buykc12dh753h" path="res://sword_throw.tscn" id="3_ic4wn"]
+
+[resource]
+script = ExtResource("1_ado8a")
+weapon_name = "Sword"
+variant_scenes = Array[PackedScene]([ExtResource("2_60fpg"), null, ExtResource("3_ic4wn")])
+metadata/_custom_type_script = "uid://bbbo7cju0mtbr"

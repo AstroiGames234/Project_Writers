@@ -1,0 +1,34 @@
+[gd_scene format=3 uid="uid://5rqbvi7hb5ro"]
+
+[ext_resource type="Script" uid="uid://d2kq7p3o02f0k" path="res://boot.gd" id="1_qtu10"]
+[ext_resource type="PackedScene" uid="uid://t6uccx2y2s7u" path="res://main_menu.tscn" id="2_ee4bf"]
+[ext_resource type="Texture2D" uid="uid://dsfnng2rywjcd" path="res://Textures/splash/placeholder splash.png" id="3_kbped"]
+
+[node name="splash" type="Control" unique_id=569733956]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_qtu10")
+next_scene = ExtResource("2_ee4bf")
+min_display_time = 1.0
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=1961317518]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_kbped")
+
+[node name="FadeRect" type="ColorRect" parent="." unique_id=1400438353]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
