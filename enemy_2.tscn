@@ -1,0 +1,51 @@
+[gd_scene format=3 uid="uid://bds0ymnegxq3"]
+
+[ext_resource type="Script" uid="uid://dhbuyi35xv8hl" path="res://enemy_2.gd" id="1_vfv5t"]
+[ext_resource type="PackedScene" uid="uid://d18qscarxof6l" path="res://enemy_projectile.tscn" id="2_hv4bk"]
+[ext_resource type="Script" uid="uid://dj1pfwbmttegp" path="res://enemy_health.gd" id="2_mvvu1"]
+[ext_resource type="Script" uid="uid://c1efmxgqqdpfg" path="res://hurtbox2.gd" id="4_hv4bk"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_3xd07"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_3xd07"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jq8tk"]
+albedo_color = Color(1, 0.40392157, 0, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_qr8xe"]
+size = Vector3(2.4, 1.7, 2)
+
+[node name="Enemy_2" type="CharacterBody3D" unique_id=95237513]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0)
+script = ExtResource("1_vfv5t")
+projectile_scene = ExtResource("2_hv4bk")
+projectile_damage = 25
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="." unique_id=550200619]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=2120274392]
+shape = SubResource("CapsuleShape3D_3xd07")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=908428553]
+mesh = SubResource("CapsuleMesh_3xd07")
+surface_material_override/0 = SubResource("StandardMaterial3D_jq8tk")
+
+[node name="EnemyHealth" type="Node" parent="." unique_id=37399092]
+script = ExtResource("2_mvvu1")
+max_health = 2
+metadata/_custom_type_script = "uid://dj1pfwbmttegp"
+
+[node name="Muzzle" type="Marker3D" parent="." unique_id=284894821]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.6)
+gizmo_extents = 0.53
+
+[node name="RayCast3D" type="RayCast3D" parent="." unique_id=1125836348]
+transform = Transform3D(1, 0, 0, 0, -1.841998e-06, 1.0000005, 0, -42.140003, -4.3711406e-08, 0, 0, 0.100000024)
+
+[node name="Hurtbox" type="Area3D" parent="." unique_id=831612552]
+transform = Transform3D(1.05, 0, 0, 0, 1.05, 0, 0, 0, 1.05, 0, 0, 0)
+script = ExtResource("4_hv4bk")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Hurtbox" unique_id=1932732547]
+transform = Transform3D(1.4999999, 0, 0, 0, 1.4999999, 0, 0, 0, 1.4999999, 9.934106e-08, 0.22499993, 5.6766304e-08)
+shape = SubResource("BoxShape3D_qr8xe")

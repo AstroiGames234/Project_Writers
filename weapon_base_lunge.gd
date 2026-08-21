@@ -1,7 +1,7 @@
 class_name WeaponBaseLunge
 extends Node3D
 
-@export var weapon_name: String = "Unnamed"
+@export var weapon_name: String = "Sword_Lunge"
 @export var is_melee: bool = true
 var secondary_uses_dash: bool = true
 

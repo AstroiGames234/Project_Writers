@@ -1,13 +1,40 @@
 [gd_scene format=3 uid="uid://cddx6yu7lhrun"]
 
+[ext_resource type="Texture2D" uid="uid://voiy30eb0efj" path="res://Textures/crt4t.jpg" id="1_ohlig"]
 [ext_resource type="FontFile" uid="uid://d1rk3vxurt3iq" path="res://VCR_OSD_MONO_1.001.ttf" id="1_tk7c1"]
 [ext_resource type="Script" uid="uid://dxqosheq3gh3q" path="res://patch.gd" id="2_y06mq"]
 [ext_resource type="Script" uid="uid://b3u0b7yi0o71x" path="res://fade_in.gd" id="3_y06mq"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_ohlig"]
+sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+ground_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+
+[sub_resource type="Sky" id="Sky_apbm5"]
+sky_material = SubResource("ProceduralSkyMaterial_ohlig")
+
+[sub_resource type="Environment" id="Environment_dnune"]
+background_mode = 2
+sky = SubResource("Sky_apbm5")
+glow_enabled = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_apbm5"]
+albedo_texture = ExtResource("1_ohlig")
 
 [sub_resource type="LabelSettings" id="LabelSettings_3xd07"]
 font = ExtResource("1_tk7c1")
 
 [node name="info" type="Node" unique_id=1298758140]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1883533389]
+environment = SubResource("Environment_dnune")
+
+[node name="Camera3D" type="Camera3D" parent="." unique_id=539588145]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.0116568e-07, 2.6000042, 2.399997)
+
+[node name="CSGBox3D" type="CSGBox3D" parent="Camera3D" unique_id=1431749]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.195639e-08, -3.8146973e-06, -2.399997)
+size = Vector3(5.2000003, 3, 1)
+material = SubResource("StandardMaterial3D_apbm5")
 
 [node name="Label" type="Label" parent="." unique_id=2072915422]
 offset_left = 428.0

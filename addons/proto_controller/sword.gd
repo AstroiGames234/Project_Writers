@@ -8,6 +8,7 @@ class_name Sword
 @export var lunge_start_time: float = 0.0
 @export var lunge_duration: float = 0.5
 @export var lunge_cooldown: float = 1
+@export var icon: Texture2D
 
 @onready var hitbox: Area3D = $Hitbox
 @onready var hitbox_shape: CollisionShape3D = $Hitbox/CollisionShape3D

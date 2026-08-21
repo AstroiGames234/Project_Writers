@@ -18,3 +18,12 @@ func _on_patch_pressed() -> void:
 
 func _on_info_pressed() -> void:
 	get_tree().change_scene_to_file("res://info.tscn")
+
+
+func _on_settings_pressed() -> void:
+	$".".visible = false
+	$"../SettingsMenu".visible = true
+	$"../Label".visible = false
+	$"../Label2".visible = false
+	$"../Label3".visible = false
+	$"../VBoxContainer2".visible = false

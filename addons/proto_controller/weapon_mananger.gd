@@ -1,9 +1,16 @@
 extends Node3D
-signal weapon_changed(weapon_name: String, variant_index: int, variant_count: int)
-# Each "slot" is a weapon archetype (e.g. Revolver) with up to 3 variant scenes
-# (e.g. Revolver, Piercer, Marksman) just like ULTRAKILL's weapon variants.
+signal weapon_changed(weapon_name: String, variant_index: int, variant_count: int, icon: Texture2D)
+
+func _emit_weapon_changed() -> void:
+	var slot := _current_slot()
+	if slot == null:
+		return
+	var w := slot.current()
+	if w:
+		weapon_changed.emit(w.weapon_name, slot.variant_index, slot.variants.size(), w.icon)
+
 class WeaponSlot:
-	var variants: Array[WeaponBase] = []   # instantiated variant nodes, index 0..2
+	var variants: Array[WeaponBase] = []   
 	var variant_index: int = 0
 
 	func current() -> WeaponBase:
@@ -12,7 +19,7 @@ class WeaponSlot:
 		return variants[variant_index]
 
 @export var starting_weapons: Array[WeaponVariantSet] = []  
-var all_weapon_sets: Dictionary = {}  # weapon_name -> WeaponVariantSet, for ones not yet owned
+var all_weapon_sets: Dictionary = {}  
 
 var slots: Array[WeaponSlot] = []
 var current_index: int = 0
@@ -44,6 +51,7 @@ func unlock_weapon(set: WeaponVariantSet) -> void:
 			return  # already owned, don't duplicate
 	_add_slot(set)
 	switch_to(slots.size() - 1)  # auto-switch to newly picked up weapon
+	_emit_weapon_changed()
 
 func unlock_variant(weapon_name: String, variant_index: int) -> void:
 	if variant_index < 0 or variant_index > 2:
@@ -54,6 +62,7 @@ func unlock_variant(weapon_name: String, variant_index: int) -> void:
 			if variant_index < slot.variants.size():
 				slot.variants[variant_index].set_meta("unlocked", true)
 			return
+	_emit_weapon_changed()
 
 func switch_to(index: int) -> void:
 	if index < 0 or index >= slots.size():
@@ -83,7 +92,6 @@ func prev_weapon() -> void:
 
 
 func cycle_variant() -> void:
-	emit_signal("weapon_changed")
 	var slot := _current_slot()
 	if slot == null or slot.variants.size() <= 1:
 		return
@@ -92,10 +100,12 @@ func cycle_variant() -> void:
 		old.unequip()
 		old.visible = false
 	slot.variant_index = (slot.variant_index + 1) % slot.variants.size()
+	print("cycle_variant called, new index: ", slot.variant_index)
 	var new_w := slot.current()
 	if new_w:
 		new_w.visible = true
 		new_w.equip()
+	_emit_weapon_changed()
 	
 func switch_variant(variant_index: int) -> void:
 	var slot := _current_slot()
@@ -117,12 +127,14 @@ func _current_slot() -> WeaponSlot:
 	if slots.size() == 0:
 		return null
 	return slots[current_index]
+	_emit_weapon_changed()
 
 func current_weapon() -> WeaponBase:
 	var slot := _current_slot()
 	if slot == null:
 		return null
 	return slot.current()
+	_emit_weapon_changed()
 
 func fire_primary() -> void:
 	if current_weapon():

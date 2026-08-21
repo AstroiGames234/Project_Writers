@@ -2,28 +2,30 @@
 
 [ext_resource type="Script" uid="uid://35kfmpsnu5aw" path="res://sword_throw.gd" id="1_n7n1s"]
 [ext_resource type="PackedScene" uid="uid://dfgbgq0ufucnl" path="res://Combat/Sword/sword_projectile.tscn" id="2_2vwdp"]
+[ext_resource type="Texture2D" uid="uid://ceng41w7xwdue" path="res://Textures/Icons/sword_throw_icon-removebg-preview.png" id="2_b7plv"]
 [ext_resource type="ArrayMesh" uid="uid://cds8sjp0veun" path="res://Combat/Sword/Sword.obj" id="2_n7n1s"]
+[ext_resource type="Script" uid="uid://d3pxrp7a2vtxw" path="res://weapon_base_throw.gd" id="4_2vwdp"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3xd07"]
 albedo_color = Color(0, 0, 0, 1)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jq8tk"]
-albedo_color = Color(1, 0.72156864, 0, 1)
+albedo_color = Color(1, 0, 0, 1)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6fhyq"]
-albedo_color = Color(1, 0.72156864, 0, 1)
+albedo_color = Color(1, 0, 0, 1)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_dwbtc"]
-albedo_color = Color(1, 0.72156864, 0, 1)
+albedo_color = Color(1, 0, 0, 1)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_h83rl"]
-albedo_color = Color(1, 0.72156864, 0, 1)
+albedo_color = Color(1, 0, 0, 1)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_j0ogg"]
-albedo_color = Color(1, 0.72156864, 0, 1)
+albedo_color = Color(1, 0, 0, 1)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_t7n2i"]
-albedo_color = Color(1, 0.72156864, 0, 1)
+albedo_color = Color(1, 0, 0, 1)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_cdwd0"]
 albedo_color = Color(0.95686275, 1, 0.93333334, 1)
@@ -33,6 +35,7 @@ size = Vector3(4.0146484, 2.4663086, 3.7383149)
 
 [node name="Sword" type="Node3D" unique_id=1908016970]
 script = ExtResource("1_n7n1s")
+icon = ExtResource("2_b7plv")
 throw_projectile_scene = ExtResource("2_2vwdp")
 throw_damage = 3
 weapon_name = "Sword Throw"
@@ -56,6 +59,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.007944465, 0.6812047, -1.71
 shape = SubResource("BoxShape3D_jq8tk")
 
 [node name="WeaponBase" type="Node3D" parent="." unique_id=1424862445]
+script = ExtResource("4_2vwdp")
 
 [node name="Muzzle" type="Marker3D" parent="." unique_id=1973292176]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.19588488, -1.348515)

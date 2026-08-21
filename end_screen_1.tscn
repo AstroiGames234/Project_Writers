@@ -3,7 +3,23 @@
 [ext_resource type="Script" uid="uid://b7c4swrl7vgj8" path="res://force.gd" id="1_8rnkt"]
 [ext_resource type="Script" uid="uid://bde20pw80gts0" path="res://level end.gd" id="1_t1v37"]
 [ext_resource type="FontFile" uid="uid://d1rk3vxurt3iq" path="res://VCR_OSD_MONO_1.001.ttf" id="2_8rnkt"]
+[ext_resource type="Texture2D" uid="uid://voiy30eb0efj" path="res://Textures/crt4t.jpg" id="2_q4ki5"]
 [ext_resource type="Script" uid="uid://6thomo0q1nbp" path="res://enddisplaytime.gd" id="4_obq2f"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_q4ki5"]
+sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+ground_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+
+[sub_resource type="Sky" id="Sky_eolti"]
+sky_material = SubResource("ProceduralSkyMaterial_q4ki5")
+
+[sub_resource type="Environment" id="Environment_arpeh"]
+background_mode = 2
+sky = SubResource("Sky_eolti")
+glow_enabled = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_eolti"]
+albedo_texture = ExtResource("2_q4ki5")
 
 [sub_resource type="LabelSettings" id="LabelSettings_3xd07"]
 font = ExtResource("2_8rnkt")
@@ -15,12 +31,27 @@ font_size = 40
 [node name="end screen" type="Node3D" unique_id=1826501863]
 script = ExtResource("1_8rnkt")
 
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1604634476]
+environment = SubResource("Environment_arpeh")
+
+[node name="Camera3D" type="Camera3D" parent="." unique_id=587650002]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.0116568e-07, 1.500004, 2.399997)
+
+[node name="CSGBox3D" type="CSGBox3D" parent="Camera3D" unique_id=2007350305]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.195639e-08, -3.8146973e-06, -2.399997)
+size = Vector3(5.2000003, 3, 1)
+material = SubResource("StandardMaterial3D_eolti")
+
 [node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=584918214]
 offset_left = 398.0
 offset_top = 304.0
 offset_right = 746.0
 offset_bottom = 468.0
 script = ExtResource("1_t1v37")
+
+[node name="next" type="Button" parent="VBoxContainer" unique_id=973285607]
+layout_mode = 2
+text = "Next Level"
 
 [node name="restart" type="Button" parent="VBoxContainer" unique_id=738132620]
 layout_mode = 2
@@ -69,5 +100,6 @@ offset_right = 795.0
 offset_bottom = 540.0
 text = "timer doesn't work :("
 
+[connection signal="pressed" from="VBoxContainer/next" to="VBoxContainer" method="_on_next_pressed"]
 [connection signal="pressed" from="VBoxContainer/restart" to="VBoxContainer" method="_on_restart_pressed"]
 [connection signal="pressed" from="VBoxContainer/to menu" to="VBoxContainer" method="_on_to_menu_pressed"]

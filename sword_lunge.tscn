@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://bd5utvt5jhs7c" path="res://addons/proto_controller/sword.gd" id="1_74bdg"]
 [ext_resource type="ArrayMesh" uid="uid://cds8sjp0veun" path="res://Combat/Sword/Sword.obj" id="2_e4ynd"]
+[ext_resource type="Texture2D" uid="uid://c7i4savs3xhlk" path="res://Textures/Icons/sword_lunge_icon-removebg-preview.png" id="2_fmlqx"]
 [ext_resource type="Script" uid="uid://k75lq8jxxyrk" path="res://weapon_base_lunge.gd" id="3_cijgn"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3xd07"]
@@ -97,6 +98,7 @@ script = ExtResource("1_74bdg")
 attack_cooldown = 0.15
 hit_start_time = 0.0
 hit_duration = 0.4
+icon = ExtResource("2_fmlqx")
 weapon_name = "Sword Lunge"
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1306568633]

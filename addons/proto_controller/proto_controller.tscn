@@ -9,8 +9,11 @@
 [ext_resource type="ArrayMesh" uid="uid://bejelfs2crul7" path="res://Models/ARM.obj" id="5_x436g"]
 [ext_resource type="Script" uid="uid://dp7ookjf1ixmn" path="res://addons/proto_controller/player.gd" id="7_ujot4"]
 [ext_resource type="Script" uid="uid://b3cn1m6de5iwl" path="res://addons/proto_controller/slam_damage.gd" id="8_1tksx"]
+[ext_resource type="Texture2D" uid="uid://gqht0al7fypw" path="res://Textures/rb0.jpg" id="8_2yh8o"]
 [ext_resource type="Script" uid="uid://db5cets5ok64d" path="res://addons/proto_controller/variant_label.gd" id="8_q1ipm"]
+[ext_resource type="Texture2D" uid="uid://cdaxg2mmlsg24" path="res://Textures/healthbartemp.jpg" id="8_ue3g7"]
 [ext_resource type="AudioStream" uid="uid://bpux28vl1j7gb" path="res://Sounds/jump1-1.mp3" id="9_ths8c"]
+[ext_resource type="PackedScene" uid="uid://dj0f7nt1fqq3u" path="res://pause_menu.tscn" id="11_cisnj"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_iof21"]
 albedo_color = Color(0, 1, 0, 1)
@@ -25,11 +28,11 @@ height = 1.8
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_3xd07"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3xd07"]
-bg_color = Color(0, 0, 0, 1)
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_3o3af"]
+texture = ExtResource("8_2yh8o")
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jq8tk"]
-bg_color = Color(1, 0, 0, 1)
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_f4vau"]
+texture = ExtResource("8_ue3g7")
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_6fhyq"]
 size = Vector3(4.802002, 1.9697266, 5.3171387)
@@ -40,6 +43,8 @@ crouch_speed = 10.0
 jump_velocity = 12.0
 dash_speed = 32.0
 dash_cooldown = 1.0
+wall_jump_push = 6.0
+wall_jump_up = 11.0
 wall_jump_max_uses = 11111
 coyote_time = 0.8
 slide_boost_speed = 20.0
@@ -97,24 +102,38 @@ offset_left = 15.0
 offset_top = 594.0
 offset_right = 336.0
 offset_bottom = 621.0
-theme_override_styles/background = SubResource("StyleBoxFlat_3xd07")
-theme_override_styles/fill = SubResource("StyleBoxFlat_jq8tk")
+theme_override_styles/background = SubResource("StyleBoxTexture_3o3af")
+theme_override_styles/fill = SubResource("StyleBoxTexture_f4vau")
 value = 100.0
 show_percentage = false
 metadata/_edit_use_anchors_ = true
 
-[node name="VariantLabel" type="Label" parent="CanvasLayer" unique_id=1183028788]
-offset_left = 66.0
-offset_top = 420.0
-offset_right = 200.0
-offset_bottom = 521.0
-scale = Vector2(1.2289346, 1.2425666)
-text = "hey, your weapon
-will be displayed
-here in the next
-update"
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer" unique_id=1276228895]
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.503
+anchor_bottom = 0.5
+offset_top = -14.0
+offset_right = 38.210205
+offset_bottom = 25.285767
+grow_horizontal = 2
+grow_vertical = 2
+rotation = 0.8412487
+scale = Vector2(0.15, 0.15)
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="WeaponIcon" type="TextureRect" parent="CanvasLayer" unique_id=560570401]
+offset_left = -10.0
+offset_top = 418.0
+offset_right = 30.0
+offset_bottom = 458.0
+scale = Vector2(0.5, 0.5)
 script = ExtResource("8_q1ipm")
 weapon_manager = NodePath("../../Head/Camera3D/HandPivot/WeaponHolder")
+
+[node name="PauseMenu" parent="CanvasLayer" unique_id=416215349 instance=ExtResource("11_cisnj")]
 
 [node name="player" type="Node" parent="." unique_id=2104148188]
 script = ExtResource("7_ujot4")

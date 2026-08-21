@@ -130,21 +130,20 @@ func _ready() -> void:
 			standing_shape_position_y = collision_shape.position.y
 
 
+@export var base_sensitivity: float = 0.1 
+
 func _input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion:
-		rotate_y(deg_to_rad(-event.relative.x * mouse_sensitivity))
-
+		var sens = base_sensitivity * SettingsManager.mouse_sensitivity
+		rotate_y(deg_to_rad(-event.relative.x * sens))
 		head_pitch = clamp(
-			head_pitch - event.relative.y * mouse_sensitivity,
+			head_pitch - event.relative.y * sens,
 			-89.0,
 			89.0
 		)
-
 		head.rotation_degrees.x = head_pitch
-
 	if event.is_action_pressed("ui_cancel"):
 		pass
-
 
 func _unhandled_input(event: InputEvent) -> void:
 	# --- Weapon switching ---

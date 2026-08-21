@@ -5,7 +5,7 @@ class_name SwordThrow
 @export var attack_cooldown: float = 0.5
 @export var hit_start_time: float = 0.1
 @export var hit_duration: float = 0.2
-
+@export var icon: Texture2D
 @export var throw_projectile_scene: PackedScene   
 @export var throw_speed: float = 35.0
 @export var throw_damage: int = 8

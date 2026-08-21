@@ -1,8 +1,24 @@
 [gd_scene format=3 uid="uid://bor0fmm6qjgka"]
 
+[ext_resource type="Texture2D" uid="uid://voiy30eb0efj" path="res://Textures/crt4t.jpg" id="1_dpptw"]
 [ext_resource type="FontFile" uid="uid://d1rk3vxurt3iq" path="res://VCR_OSD_MONO_1.001.ttf" id="1_yk8kh"]
 [ext_resource type="Script" uid="uid://dxqosheq3gh3q" path="res://patch.gd" id="2_rx5wu"]
 [ext_resource type="Script" uid="uid://b3u0b7yi0o71x" path="res://fade_in.gd" id="3_rx5wu"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_dpptw"]
+sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+ground_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+
+[sub_resource type="Sky" id="Sky_jo515"]
+sky_material = SubResource("ProceduralSkyMaterial_dpptw")
+
+[sub_resource type="Environment" id="Environment_w2j74"]
+background_mode = 2
+sky = SubResource("Sky_jo515")
+glow_enabled = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jo515"]
+albedo_texture = ExtResource("1_dpptw")
 
 [sub_resource type="LabelSettings" id="LabelSettings_3xd07"]
 font = ExtResource("1_yk8kh")
@@ -14,13 +30,24 @@ font_size = 37
 
 [node name="Patch Notes" type="Node" unique_id=1047037922]
 
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1917858877]
+environment = SubResource("Environment_w2j74")
+
+[node name="Camera3D" type="Camera3D" parent="." unique_id=1785509868]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.0116568e-07, 3.0000043, 2.399997)
+
+[node name="CSGBox3D" type="CSGBox3D" parent="Camera3D" unique_id=784333352]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.195639e-08, -3.8146973e-06, -2.399997)
+size = Vector3(5.2000003, 3, 1)
+material = SubResource("StandardMaterial3D_jo515")
+
 [node name="Title" type="Label" parent="." unique_id=1733254663]
 offset_left = 310.0
 offset_top = 58.999996
 offset_right = 591.0
 offset_bottom = 86.0
 scale = Vector2(2.537197, 3.483507)
-text = "Pre-Alpha 8"
+text = "Pre-Alpha 9"
 label_settings = SubResource("LabelSettings_3xd07")
 
 [node name="Patch notes" type="Label" parent="." unique_id=815265080]
@@ -29,10 +56,11 @@ offset_top = 275.00003
 offset_right = 1135.0
 offset_bottom = 416.00003
 scale = Vector2(0.51140743, 1.0406808)
-text = "-Arm and weapon now follows the camera
--First Sword variant (throw)
--Added this screne i guess
--SPLASH SCREEN!!(temporarly)"
+text = "-Level 2!
+-Enemy 2! (Arany János)
+-You can actually tell what variant you are on!
+-Title Drops!
+-Thats it!"
 label_settings = SubResource("LabelSettings_dpptw")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=105112882]
@@ -48,6 +76,7 @@ layout_mode = 2
 text = "Back"
 
 [node name="Control" type="Control" parent="." unique_id=1304177425]
+visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0

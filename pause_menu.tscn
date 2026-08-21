@@ -1,0 +1,66 @@
+[gd_scene format=3 uid="uid://dj0f7nt1fqq3u"]
+
+[ext_resource type="Script" uid="uid://batro7t7ax6on" path="res://pause_menu.gd" id="1_nwcfo"]
+[ext_resource type="FontFile" uid="uid://d1rk3vxurt3iq" path="res://VCR_OSD_MONO_1.001.ttf" id="2_05uyy"]
+[ext_resource type="PackedScene" uid="uid://cge3ng2fgbql1" path="res://settings_menu.tscn" id="3_05uyy"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_3xd07"]
+font = ExtResource("2_05uyy")
+font_size = 41
+
+[node name="PauseMenu" type="Control" unique_id=416215349]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_nwcfo")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=2131722248]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -52.5
+offset_top = -50.5
+offset_right = 52.5
+offset_bottom = 50.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Resume" type="Button" parent="VBoxContainer" unique_id=649459110]
+layout_mode = 2
+text = "Resume"
+
+[node name="Settings" type="Button" parent="VBoxContainer" unique_id=488237303]
+layout_mode = 2
+text = "Settings"
+
+[node name="Quit" type="Button" parent="VBoxContainer" unique_id=1415042202]
+layout_mode = 2
+text = "Quit"
+
+[node name="Label" type="Label" parent="." unique_id=1494691244]
+layout_mode = 0
+offset_left = 446.0
+offset_top = 125.0
+offset_right = 710.0
+offset_bottom = 162.0
+text = "Game Paused"
+label_settings = SubResource("LabelSettings_3xd07")
+
+[node name="SettingsMenu" parent="." unique_id=1230110406 instance=ExtResource("3_05uyy")]
+visible = false
+layout_mode = 1
+offset_left = 0.0
+offset_top = 6.0
+offset_right = 0.0
+offset_bottom = 6.0
+
+[connection signal="pressed" from="VBoxContainer/Resume" to="." method="_on_resume_pressed"]
+[connection signal="pressed" from="VBoxContainer/Settings" to="." method="_on_settings_pressed"]
+[connection signal="pressed" from="VBoxContainer/Quit" to="." method="_on_quit_pressed"]

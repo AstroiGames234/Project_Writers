@@ -6,6 +6,30 @@
 [sub_resource type="BoxShape3D" id="BoxShape3D_3xd07"]
 size = Vector3(2.616211, 0.61279297, 3.0107422)
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_b7plv"]
+albedo_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_876vf"]
+albedo_color = Color(1, 0, 0, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ks4n5"]
+albedo_color = Color(1, 0, 0, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hekuh"]
+albedo_color = Color(1, 0, 0, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_pg8vd"]
+albedo_color = Color(1, 0, 0, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2b2vs"]
+albedo_color = Color(1, 0, 0, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_noqyk"]
+albedo_color = Color(1, 0, 0, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kt4gx"]
+albedo_color = Color(0.8352941, 1, 1, 1)
+
 [node name="SwordProjectile" type="Area3D" unique_id=472354189]
 script = ExtResource("1_fm41o")
 
@@ -16,3 +40,11 @@ shape = SubResource("BoxShape3D_3xd07")
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1002128564]
 transform = Transform3D(0.36506882, -0.31575054, 0.0036239594, 0, 0.0037558046, 0.47097546, -0.49411446, -0.23328741, 0.0026775058, 0.5340247, 0, -0.6079849)
 mesh = ExtResource("2_ogvgt")
+surface_material_override/0 = SubResource("StandardMaterial3D_b7plv")
+surface_material_override/1 = SubResource("StandardMaterial3D_876vf")
+surface_material_override/2 = SubResource("StandardMaterial3D_ks4n5")
+surface_material_override/3 = SubResource("StandardMaterial3D_hekuh")
+surface_material_override/4 = SubResource("StandardMaterial3D_pg8vd")
+surface_material_override/5 = SubResource("StandardMaterial3D_2b2vs")
+surface_material_override/6 = SubResource("StandardMaterial3D_noqyk")
+surface_material_override/7 = SubResource("StandardMaterial3D_kt4gx")
